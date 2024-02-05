@@ -1,2 +1,3 @@
 # peote-view-samples
-core and test samples for peote-view
+
+core samples for [peote-view](https://github.com/maitag/peote-view)
