@@ -13,8 +13,9 @@
 	<!--
 		BunnyMark,
 		BunnyMarkGPU,
+		MouseEvents,
+		Boids,
 		CheckTextureMemory,
-		Boids
 	-->
 	
 	<define name="bunnies" value="500000" />

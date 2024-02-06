@@ -8,7 +8,7 @@
 	<!-- check this for GG-Playstore: <setenv name="ANDROID_GRADLE_TASK" value=":app:bundleRelease" /> -->
 
 	<!-- samples -->
-	<app main="TextureDataInOut" path="bin" file="Main" />
+	<app main="ShaderInjection" path="bin" file="Main" />
 	<!--
 		ShaderInjection,
 		CombineShaders,

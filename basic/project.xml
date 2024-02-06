@@ -8,31 +8,9 @@
 	<!-- check this for GG-Playstore: <setenv name="ANDROID_GRADLE_TASK" value=":app:bundleRelease" /> -->
 
 	<!-- samples -->
-	<app main="TextureDataInOut" path="bin" file="Main" />
+	<app main="SimpleQuad" path="bin" file="Main" />
 	<!--
-		SimpleQuad, Multidisplay, Multibuffer, ElementInherit, DepthBlend,
-		TextureSimple, TextureDataInOut, TextureSlotTiles,
-		MultiTextures,
-		BlendAlphaMode,
-		TextureMipmapFilter,
-		TextureCaching,
-		RenderToTexture, DrawToTexture,
-		ShaderInjection,
-		CombineShaders,
-		CustomUniforms,
-		Animation,
-		GLPicking,
-		MouseEvents,
-		StencilMask
-		Boids,
-		...
-		FramebufferChain (TODO!)
-		...
-		TestMultipassTemplate
-		...
-		CheckTextureMemory
-		HitTest  (TODO!)
-		MultipleWindows (TODO!)
+		SimpleQuad, Multidisplay, Multibuffer, ElementInherit
 	-->
 	
 	

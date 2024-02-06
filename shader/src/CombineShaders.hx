@@ -116,11 +116,11 @@ class CombineShaders extends Application
 				
 		program.updateTextures(); // updates gl-textures and rebuilding shadercode
 				
-		loadImage(textureImage0, "assets/images/test0.png", 0);
-		loadImage(textureImage0, "assets/images/test1.png", 1);
+		loadImage(textureImage0, "assets/test0.png", 0);
+		loadImage(textureImage0, "assets/test1.png", 1);
 		
-		loadImage(textureImage1, "assets/images/test2.png", 0);
-		loadImage(textureImage1, "assets/images/test3.png", 1);
+		loadImage(textureImage1, "assets/test2.png", 0);
+		loadImage(textureImage1, "assets/test3.png", 1);
 		
 		loadImage(textureMask, maskImage[maskImageNumber]);
 		
