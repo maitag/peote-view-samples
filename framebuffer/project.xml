@@ -8,11 +8,12 @@
 	<!-- check this for GG-Playstore: <setenv name="ANDROID_GRADLE_TASK" value=":app:bundleRelease" /> -->
 
 	<!-- samples -->
-	<app main="RenderToTexture" path="bin" file="Main" />
+	<app main="GLPickingAndFBO" path="bin" file="Main" />
 	<!--
 		RenderToTexture,
 		DrawToTexture,
-		GLPicking
+		GLPicking,
+		GLPickingAndFBO,
 		FramebufferChain (TODO!)
 	-->
 	
