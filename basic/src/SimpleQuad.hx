@@ -11,7 +11,7 @@ import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
 
-import elements.ElementSimple;
+import peote.view.element.Elem;
 
 class SimpleQuad extends Application
 {
@@ -31,13 +31,13 @@ class SimpleQuad extends Application
 		var peoteView = new PeoteView(window, Color.BLUE);
 		var display   = new Display(10, 10, window.width-20, window.height-20, Color.GREEN);
 
-		var buffer = new Buffer<ElementSimple>(4, 4, true);
+		var buffer = new Buffer<Elem>(4, 4, true);
 		var program   = new Program(buffer);
 		
 		peoteView.addDisplay(display);
 		display.addProgram(program);
 		
-		var element = new ElementSimple();
+		var element = new Elem(0, 0, 100, 100, 0, 0, 0, 0, Color.RED);
 		buffer.addElement(element);
 	}
 		

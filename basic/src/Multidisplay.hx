@@ -15,13 +15,13 @@ import peote.view.Program;
 import peote.view.Color;
 
 
-import elements.ElementSimple;
+import peote.view.element.Elem;
 
 class Multidisplay extends Application
 {
 	var peoteView:PeoteView;
-	var element:ElementSimple;
-	var buffer:Buffer<ElementSimple>;
+	var element:Elem;
+	var buffer:Buffer<Elem>;
 	var displayLeft:Display;
 	var displayRight:Display;
 	var program:Program;
@@ -59,18 +59,18 @@ class Multidisplay extends Application
 		// move the left display to the end of the list
 		//peoteView.addDisplay(displayLeft);
 		
-		buffer  = new Buffer<ElementSimple>(100);
-		element = new ElementSimple(100, 100, 100, 100, Color.YELLOW);
+		buffer  = new Buffer<Elem>(100);
+		element = new Elem(100, 100, 100, 100, 0, 0, 0, 0, Color.YELLOW);
 		buffer.addElement(element);
 		program = new Program(buffer);
 		
 		displayLeft.addProgram(program);
 		
-		var bufferBG  = new Buffer<ElementSimple>(100);
-		bufferBG.addElement(new ElementSimple(0, 0));
-		bufferBG.addElement(new ElementSimple(300, 0));
-		bufferBG.addElement(new ElementSimple(300, 300));
-		bufferBG.addElement(new ElementSimple(0, 300));
+		var bufferBG  = new Buffer<Elem>(100);
+		bufferBG.addElement(new Elem(0, 0, 100, 100, 0, 0, 0, 0, Color.RED));
+		bufferBG.addElement(new Elem(300, 0, 100, 100, 0, 0, 0, 0, Color.RED));
+		bufferBG.addElement(new Elem(300, 300, 100, 100, 0, 0, 0, 0, Color.RED));
+		bufferBG.addElement(new Elem(0, 300, 100, 100, 0, 0, 0, 0, Color.RED));
 		programBG = new Program(bufferBG);
 		
 		displayLeft.addProgram(programBG);

@@ -11,9 +11,10 @@ import peote.view.Display;
 import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
+import peote.view.Mask;
 
-import elements.ElementSimple;
-import elements.ElementAnim;
+import peote.view.element.Elem;
+import peote.view.element.ElemAnim;
 
 class StencilMask extends Application
 {
@@ -35,9 +36,9 @@ class StencilMask extends Application
 		peoteView.addDisplay(display);		
 		
 		// program that act as a mask
-		var maskBuffer  = new Buffer<ElementAnim>(4, 4, true);
+		var maskBuffer  = new Buffer<ElemAnim>(4, 4, true);
 		var maskProgram = new Program(maskBuffer);
-		var maskElement = new ElementAnim(100, 100, 100, 100, Color.WHITE);
+		var maskElement = new ElemAnim(100, 100, 100, 100, 0, 0, 0, 0, Color.WHITE);
 		
 		maskElement.setPivot(50, 50);
 		maskElement.animRotation(0, 180);
@@ -53,9 +54,9 @@ class StencilMask extends Application
 		
 		
 		// program that is masked
-		var buffer  = new Buffer<ElementSimple>(4, 4, true);
+		var buffer  = new Buffer<Elem>(4, 4, true);
 		var program = new Program(buffer);
-		var element = new ElementSimple(0, 0, 100, 100, Color.BLUE);
+		var element = new Elem(0, 0, 100, 100, 0, 0, 0, 0, Color.BLUE);
 
 		program.mask = Mask.USE;
 		

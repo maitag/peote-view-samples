@@ -2,7 +2,7 @@ package;
 
 import haxe.Timer;
 import haxe.CallStack;
-import peote.view.utils.BlendFactor;
+import peote.view.BlendFactor;
 
 import lime.app.Application;
 import lime.graphics.RenderContext;

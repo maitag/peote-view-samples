@@ -7,6 +7,7 @@ import lime.ui.Window;
 import lime.ui.KeyCode;
 import lime.ui.KeyModifier;
 import lime.ui.MouseButton;
+import lime.graphics.Image;
 
 import peote.view.PeoteGL;
 import peote.view.PeoteView;
@@ -14,14 +15,17 @@ import peote.view.Display;
 import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
+import peote.view.TextureData;
 
-import elements.ElementSimple;
+import peote.view.intern.GLTool;
+
+import peote.view.element.Elem;
 
 class CheckTextureMemory extends Application
 {
 	var peoteView:PeoteView;
-	var element = new Array<ElementSimple>();
-	var buffer:Buffer<ElementSimple>;
+	var element = new Array<Elem>();
+	var buffer:Buffer<Elem>;
 	
 	var elemNumber:Int = 0;
 	
@@ -40,7 +44,7 @@ class CheckTextureMemory extends Application
 	{
 		peoteView = new PeoteView(window);
 		
-		buffer = new Buffer<ElementSimple>(4, 4, true);
+		buffer = new Buffer<Elem>(4, 4, true);
 
 		var display   = new Display(10,10, window.width-20, window.height-20, Color.GREEN);
 		var program   = new Program(buffer);
@@ -65,23 +69,23 @@ class CheckTextureMemory extends Application
 		
 		for (i in 0...200) {
 			
-			peote.view.utils.GLTool.clearGlErrorQueue(gl);
+			GLTool.clearGlErrorQueue(gl);
 				glTexture[i] = gl.createTexture();
-			if (peote.view.utils.GLTool.getLastGlError(gl) != gl.NO_ERROR) throw("ERROR: gl.createTexture");
+			if (GLTool.getLastGlError(gl) != gl.NO_ERROR) throw("ERROR: gl.createTexture");
 			
-			peote.view.utils.GLTool.clearGlErrorQueue(gl);
+			GLTool.clearGlErrorQueue(gl);
 				gl.bindTexture(gl.TEXTURE_2D, glTexture[i]);
-			if (peote.view.utils.GLTool.getLastGlError(gl) != gl.NO_ERROR) throw("ERROR: gl.bindTexture");
+			if (GLTool.getLastGlError(gl) != gl.NO_ERROR) throw("ERROR: gl.bindTexture");
 			
 			
-			peote.view.utils.GLTool.clearGlErrorQueue(gl);
+			GLTool.clearGlErrorQueue(gl);
 				gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, size, size, 0, gl.RGBA, gl.UNSIGNED_BYTE, 0);
 				//gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, size, size, 0, gl.RGBA, gl.UNSIGNED_BYTE, randomImage.data);
-			if (peote.view.utils.GLTool.getLastGlError(gl) != gl.NO_ERROR) throw("ERROR: gl.texImage2D");
+			if (GLTool.getLastGlError(gl) != gl.NO_ERROR) throw("ERROR: gl.texImage2D");
 			
-			peote.view.utils.GLTool.clearGlErrorQueue(gl);
-				gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, size, size, gl.RGBA, gl.UNSIGNED_BYTE, randomImage.data );
-			if (peote.view.utils.GLTool.getLastGlError(gl) != gl.NO_ERROR) throw("ERROR: gl.texSubImage2D");
+			GLTool.clearGlErrorQueue(gl);
+				gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, size, size, gl.RGBA, gl.UNSIGNED_BYTE, (randomImage:TextureData).dataUInt8 );
+			if (GLTool.getLastGlError(gl) != gl.NO_ERROR) throw("ERROR: gl.texSubImage2D");
 			
 			gl.bindTexture(gl.TEXTURE_2D, null);
 			trace(i);
@@ -113,7 +117,7 @@ class CheckTextureMemory extends Application
 
 	override function onMouseDown (x:Float, y:Float, button:MouseButton):Void
 	{
-		element[elemNumber]  = new ElementSimple(10+elemNumber*50, 10, 40, 40);
+		element[elemNumber]  = new Elem(10+elemNumber*50, 10, 40, 40, 0, 0, 0, 0, Color.RED);
 		buffer.addElement(element[elemNumber]);
 		elemNumber++; trace("elements " + elemNumber);
 	}
@@ -122,7 +126,7 @@ class CheckTextureMemory extends Application
 	{
 		switch (keyCode) {
 			case KeyCode.NUMPAD_PLUS:
-				element[elemNumber]  = new ElementSimple(10+elemNumber*50, 10, 40, 40);
+				element[elemNumber]  = new Elem(10+elemNumber*50, 10, 40, 40, 0, 0, 0, 0, Color.RED);
 				buffer.addElement(element[elemNumber]);
 				elemNumber++; trace("elements " + elemNumber);
 			case KeyCode.NUMPAD_MINUS:

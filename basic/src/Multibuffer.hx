@@ -12,7 +12,7 @@ import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
 
-import elements.ElementSimple;
+import peote.view.element.Elem;
 
 class Multibuffer extends Application
 {
@@ -37,8 +37,8 @@ class Multibuffer extends Application
 		var displayRight = new Display(300, 10, 280, 280);
 		displayRight.color = Color.GREEN;
 		
-		var bufferLeft  = new Buffer<ElementSimple>(100);
-		var bufferRight = new Buffer<ElementSimple>(100);
+		var bufferLeft  = new Buffer<Elem>(100);
+		var bufferRight = new Buffer<Elem>(100);
 
 		var programLeft  = new Program(bufferLeft);
 		var programRight = new Program(bufferRight);
@@ -49,17 +49,17 @@ class Multibuffer extends Application
 		peoteView.addDisplay(displayLeft);
 		peoteView.addDisplay(displayRight);		
 		
-		var elementLeft  = new ElementSimple(10, 10);
+		var elementLeft  = new Elem(10, 10, 100, 100, 0, 0, 0, 0, Color.RED);
 		bufferLeft.addElement(elementLeft);
 
-		var elementRight  = new elements.ElementSimple(10, 10);
+		var elementRight  = new Elem(10, 10, 100, 100, 0, 0, 0, 0, Color.RED);
 		bufferRight.addElement(elementRight);			
 			
 		Timer.delay(function() { 
-			bufferLeft.addElement(new ElementSimple(10, 120));
+			bufferLeft.addElement(new Elem(10, 120, 100, 100, 0, 0, 0, 0, Color.RED));
 		}, 1000);
 		Timer.delay(function() { 
-			bufferRight.addElement(new ElementSimple(10, 120));
+			bufferRight.addElement(new Elem(10, 120, 100, 100, 0, 0, 0, 0, Color.RED));
 		}, 2000);
 		
 	}

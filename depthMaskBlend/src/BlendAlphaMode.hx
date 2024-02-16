@@ -12,8 +12,8 @@ import peote.view.Program;
 import peote.view.Color;
 import peote.view.Element;
 
-import peote.view.utils.BlendFactor;
-import peote.view.utils.BlendFunc;
+import peote.view.BlendFactor;
+import peote.view.BlendFunc;
 
 class ElementSimple implements Element
 {

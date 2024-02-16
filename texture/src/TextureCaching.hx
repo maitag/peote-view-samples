@@ -15,7 +15,7 @@ import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
 import peote.view.Element;
-import peote.view.utils.TextureCache;
+import peote.view.TextureCache;
 
 import utils.Loader;
 
