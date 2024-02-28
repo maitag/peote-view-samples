@@ -92,10 +92,10 @@ class TextureMipmapFilter extends Application
 		display[2].addProgram(program[2]);
 		display[3].addProgram(program[3]);
 
-		texture[0] = new Texture(512, 512, 1, 4, false, 0, 0);
-		texture[1] = new Texture(512, 512, 1, 4, false, 1, 1);
-		texture[2] = new Texture(512, 512, 1, 4, true, 0, 0);
-		texture[3] = new Texture(512, 512, 1, 4, true, 1, 1);
+		texture[0] = new Texture(512, 512, { smoothExpand:true });
+		texture[1] = new Texture(512, 512, { smoothShrink:true } );
+		texture[2] = new Texture(512, 512, { mipmap:true } );
+		texture[3] = new Texture(512, 512, { mipmap:true, smoothShrink:true, smoothMipmap:true } );
 		
 		Loader.image("assets/peote_font.png", true, function (image:Image) {
 			texture[0].setImage(image);

@@ -85,7 +85,7 @@ class TextureSlotTiles extends Application
 		
 		display.addProgram(program);    // programm to display
 
-		texture0 = new Texture(400, 300, 4);
+		texture0 = new Texture(400, 300, 4, { smoothShrink: true } );
 
 		loadImage(texture0, "assets/test0.png", 0);
 		loadImage(texture0, "assets/test1.png", 1);
@@ -100,8 +100,8 @@ class TextureSlotTiles extends Application
 		element0.slot = 0;
 		buffer.addElement(element0);     // element to buffer
 		
-		texture1 = new Texture(512, 512, 3);
-		texture1.tilesX = texture1.tilesY = 16;
+		texture1 = new Texture(512, 512, 3, { smoothExpand: true, tilesX:16, tilesY:16 });
+		// texture1.tilesX = texture1.tilesY = 16;
 		
 		loadImage(texture1, "assets/peote_font.png", 0);
 		loadImage(texture1, "assets/peote_tiles.png", 1);

@@ -1,5 +1,6 @@
 package;
 
+import peote.view.TextureFormat;
 import haxe.CallStack;
 
 import lime.app.Application;
@@ -15,6 +16,7 @@ import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
 import peote.view.Element;
+import peote.view.TextureConfig;
 import peote.view.TextureCache;
 
 import utils.Loader;
@@ -73,15 +75,16 @@ class TextureCaching extends Application
 		program = new Program(buffer);
 		display.addProgram(program);		
 		
+		var textureConfig:TextureConfig = { maxTextureSize:peoteView.gl.getParameter(peoteView.gl.MAX_TEXTURE_SIZE) };
+
 		var textureCache = new TextureCache(
 			[
-				{ width:64,   height:64,   slots:8  },
-				{ width:256,  height:256,  slots:4  },
-				{ width:512,  height:512,  slots:8  },
-				{ width:1024, height:1024, slots:16 },
-				{ width:1920, height:1280, slots:8  },
-			],
-			peoteView.gl.getParameter(peoteView.gl.MAX_TEXTURE_SIZE)
+				{ width:64,   height:64,   slots:8  , config:textureConfig },
+				{ width:256,  height:256,  slots:4  , config:textureConfig },
+				{ width:512,  height:512,  slots:8  , config:textureConfig },
+				{ width:1024, height:1024, slots:16 , config:textureConfig },
+				{ width:1920, height:1280, slots:8  , config:textureConfig },
+			]
 		);
 		
 		Loader.corsServer = "cors-anywhere.herokuapp.com";
