@@ -1,8 +1,8 @@
 package;
 
+import peote.view.BlendFunc;
 import haxe.Timer;
 import haxe.CallStack;
-import peote.view.BlendFactor;
 
 import lime.app.Application;
 import lime.graphics.RenderContext;
@@ -16,6 +16,8 @@ import lime.ui.KeyCode;
 import lime.ui.KeyModifier;
 import lime.ui.MouseButton;
 
+import peote.view.BlendFactor;
+import peote.view.TextureFormat;
 import peote.view.PeoteGL;
 import peote.view.PeoteView;
 import peote.view.Display;
@@ -30,9 +32,9 @@ class ElemCanvas implements Element
 	@sizeX public var w:Float;	
 	@sizeY public var h:Float;
 	
-	@color public var c:Color = 0xffff00ff;
+	@color public var c:Color = 0xFFFFFFFF;
 		
-	public function new(w:Float=800, h:Float=600, c:Int=0xFFFF00FF )
+	public function new(w:Float=800, h:Float=600, c:Int=0xFFFFFFFF )
 	{
 		this.w = w;
 		this.h = h;
@@ -51,9 +53,9 @@ class ElemPen implements Element
 	@pivotX @const @formula("w/2.0") public var px:Float;
 	@pivotY @const @formula("h/2.0") public var py:Float;
 	
-	@color public var c:Color = 0xffff00ff;
+	@color public var c:Color = 0xFFFFFFFF;
 		
-	public function new(x:Float=0, y:Float=0, w:Float=10, h:Float=10, c:Int=0xFFFF00FF )
+	public function new(x:Float=0, y:Float=0, w:Float=10, h:Float=10, c:Int=0xFFFFFFFF )
 	{
 		this.x = x;
 		this.y = y;
@@ -98,23 +100,31 @@ class DrawToTexture extends Application
 		
 		// ----------- texture to render into ------------------------
 		
-		textureCanvas = new Texture(800, 600);
+		textureCanvas = new Texture(800, 600); //RGBA
+		// textureCanvas = new Texture(800, 600, {format:TextureFormat.LUMINANCE_ALPHA});
+		// textureCanvas = new Texture(800, 600, {format:TextureFormat.RGB});
+		// textureCanvas = new Texture(800, 600, {format:TextureFormat.LUMINANCE});
+		// textureCanvas = new Texture(800, 600, {format:TextureFormat.RG});
+		// textureCanvas = new Texture(800, 600, {format:TextureFormat.R});
 		textureCanvas.clearOnRenderInto = false; // do not clear the texture before rendering into
 		
 		
 		
 		// -- display that holds only one element with the texture what is drawed into
 		
-		displayCanvas = new Display(0, 0, 800, 600, Color.BLUE);
+		// displayCanvas = new Display(0, 0, 800, 600, Color.BLUE);
+		displayCanvas = new Display(0, 0, 800, 600, 0x331155ff);
 		peoteView.addDisplay(displayCanvas);
 		
 		bufferCanvas  = new Buffer<ElemCanvas>(1);
 		programCanvas = new Program(bufferCanvas);
 		
 		programCanvas.setTexture(textureCanvas, "renderFrom");
-		//programCanvas.setColorFormula('renderFrom');
+		// programCanvas.setColorFormula('renderFrom');
+
 		programCanvas.blendEnabled = true;
 		programCanvas.discardAtAlpha(null);
+
 		displayCanvas.addProgram(programCanvas);
 		
 		elemCanvas = new ElemCanvas(800, 600);
@@ -133,14 +143,16 @@ class DrawToTexture extends Application
 		bufferPen  = new Buffer<ElemPen>(100);
 		programPen = new Program(bufferPen);
 		
-		//programPen.blendEnabled = true;
-		//programPen.blendSrc = BlendMode.SRC_ALPHA;
-		//programPen.blendDst = BlendMode.ONE;
+		// programPen.blendEnabled = true;
+		// programPen.blendSrc = BlendFactor.SRC_ALPHA;
+		// programPen.blendDst = BlendFactor.ONE;
 		
 		displayPen.addProgram(programPen);
 		
 		// Pen Element
-		elemPen = new ElemPen(100, 100, 50, 50, Color.RED.setAlpha(0.5));
+		// elemPen = new ElemPen(100, 100, 50, 50, Color.RED.setAlpha(0.5));
+		// elemPen = new ElemPen(100, 100, 50, 50, Color.GREY4);
+		elemPen = new ElemPen(100, 100, 50, 50, 0x8877EEff);
 		bufferPen.addElement(elemPen);				
 		
 		displayPen.setFramebuffer(textureCanvas); // texture to render into

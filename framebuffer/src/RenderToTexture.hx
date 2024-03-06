@@ -124,7 +124,7 @@ class RenderToTexture extends Application
 		
 		// --------------- texture with 2 slots to render into --------------
 		
-		texture = new Texture(256, 256 , 2, 4, true, 1, 1); // 2 Slots
+		texture = new Texture(256, 256 , 2, {mipmap:true, smoothShrink: true, smoothMipmap: true, smoothExpand: true}); // 2 Slots
 		
 		// ----- bind texture to the Displays that should render into -------
 		

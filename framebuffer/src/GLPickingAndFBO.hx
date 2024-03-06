@@ -89,7 +89,7 @@ class GLPickingAndFBO extends Application
 		
 		
 		// ----- create and bind texture to the Displays that have to render into -------		
-		texturePickFBO = new Texture(200, 200 , 1, 4, true, 1, 1);
+		texturePickFBO = new Texture(200, 200);
 		displayPickFBO.setFramebuffer(texturePickFBO, peoteView);
 		
 		// peoteView.addDisplay(displayPickFBO); isAddDisplay = true;

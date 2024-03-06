@@ -16,6 +16,7 @@ import peote.view.Program;
 import peote.view.Color;
 import peote.view.Element;
 import peote.view.Texture;
+import peote.view.TextureConfig;
 
 import utils.Loader;
 
@@ -113,6 +114,7 @@ class GLPicking extends Application
 		{
 			trace("loading complete");
 			var texture = new Texture(26, 37);
+			// var texture = new Texture(26, 37, {mipmap:false, smoothShrink:false, smoothMipmap:false, powerOfTwo:false});
 			texture.setImage(image);
 			program.setTexture(texture, "custom");
 		});
