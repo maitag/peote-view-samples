@@ -75,7 +75,8 @@ class TextureCaching extends Application
 		program = new Program(buffer);
 		display.addProgram(program);		
 		
-		var textureConfig:TextureConfig = { maxTextureSize:peoteView.gl.getParameter(peoteView.gl.MAX_TEXTURE_SIZE) };
+		// var textureConfig:TextureConfig = { maxTextureSize:peoteView.gl.getParameter(peoteView.gl.MAX_TEXTURE_SIZE), powerOfTwo: true };
+		var textureConfig:TextureConfig = { maxTextureSize:4096, powerOfTwo: false };
 
 		var textureCache = new TextureCache(
 			[
