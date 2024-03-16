@@ -138,7 +138,7 @@ class TextureSlotTiles extends Application
 	
 	public function loadImage(texture:Texture, filename:String, slot:Int=0):Void {
 		Loader.image(filename, true, function(image:Image) {
-			texture.setImage(image, slot);
+			texture.setData(image, slot);
 		});		
 	}
 	

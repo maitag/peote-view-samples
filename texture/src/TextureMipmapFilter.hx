@@ -98,10 +98,10 @@ class TextureMipmapFilter extends Application
 		texture[3] = new Texture(512, 512, { mipmap:true, smoothShrink:true, smoothMipmap:true });
 		
 		Loader.image("assets/peote_font.png", true, function (image:Image) {
-			texture[0].setImage(image);
-			texture[1].setImage(image);
-			texture[2].setImage(image);
-			texture[3].setImage(image);
+			texture[0].setData(image);
+			texture[1].setData(image);
+			texture[2].setData(image);
+			texture[3].setData(image);
 			
 			program[0].setTexture(texture[0], "custom");
 			program[1].setTexture(texture[1], "custom");

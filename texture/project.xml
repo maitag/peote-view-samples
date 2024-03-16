@@ -18,13 +18,6 @@
 		TextureMipmapFilter,
 		TextureCaching,
 	-->
-	<!-- use this on MultipleWindow to prevent writing into wrong glBuffer -->
-	<!-- <haxedef name="peoteview_queueGLbuffering" /> -->
-	
-	<define name="bunnies" value="500000" />
-	<define name="bunnies" value= "60000" if="android" />
-	<define name="bunnies" value=  "6000" if="neko" />
-	<define name="stats" if="html5" />
 	
 	<!--<window fps="60" width="800" height="600" vsync="true" antialiasing="4" resizable="true" hardware="true" allow-shaders="true" require-shaders="true" depth-buffer="true" stencil-buffer="false" /> -->
 	<window width="800" height="600" fps="61" />

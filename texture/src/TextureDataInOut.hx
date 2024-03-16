@@ -4,30 +4,24 @@ import haxe.CallStack;
 
 import lime.app.Application;
 import lime.ui.Window;
-import lime.ui.KeyCode;
-import lime.ui.KeyModifier;
-import lime.graphics.Image;
-
-import utils.Loader;
 
 import peote.view.PeoteView;
 import peote.view.Display;
 import peote.view.Buffer;
 import peote.view.Program;
+import peote.view.Element;
 import peote.view.Color;
 import peote.view.Texture;
-import peote.view.Element;
+import peote.view.TextureData;
 
 class Elem implements Element
 {
-	@posX public var x:Int=0;
-	@posY public var y:Int=0;
+	@posX public var x:Int;
+	@posY public var y:Int;
 	
-	@sizeX public var w:Int=100;
-	@sizeY public var h:Int=100;
+	@sizeX public var w:Int;
+	@sizeY public var h:Int;
 	
-	@texSlot public var slot:Int = 0;
-		
 	//var OPTIONS = { texRepeatX:true, texRepeatY:true, blend:true };
 	
 	public function new(x:Int=0, y:Int=0, w:Int=100, h:Int=100)
@@ -40,14 +34,7 @@ class Elem implements Element
 }
 
 class TextureDataInOut extends Application
-{
-	var peoteView:PeoteView;
-	var element:Elem;
-	var buffer:Buffer<Elem>;
-	var display:Display;
-	var program:Program;
-	var texture:Texture;
-	
+{	
 	override function onWindowCreate():Void
 	{
 		switch (window.context.type)
@@ -61,65 +48,38 @@ class TextureDataInOut extends Application
 
 	public function startSample(window:Window)
 	{	
-		peoteView = new PeoteView(window);
-		display   = new Display(10,10, window.width-20, window.height-20, Color.GREEN);
-		peoteView.addDisplay(display);
+		var peoteView = new PeoteView(window);
+		var display   = new Display(10, 10, 512, 512, Color.GREY3);
+
+		peoteView.addDisplay(display);  // display to view
 		
-		buffer  = new Buffer<Elem>(100);
-		program = new Program(buffer);
+		var buffer  = new Buffer<Elem>(10);
+		var program = new Program(buffer);
 		
-		texture = new Texture(512, 512, 2);
-		
-		element = new Elem();
+		var element = new Elem(0, 0, 512, 512);
 		buffer.addElement(element);
 		
-		Loader.image ("assets/peote_tiles.png", true, function (image:Image) {
-			
-			//var img = new peote.view.Image(image.width, image.height);
-			
-			
-			//texture = new Texture(image.width, image.height);
-			texture.setImage(image, 0);
-			//texture.setImage(image.clone(), 1); // TODO: throw Error if same image inside multi slot
-			
-			//program.autoUpdateTextures = false;
-			program.setTexture(texture, "custom");
-			//program.updateTextures();
-			
-			program.discardAtAlpha(0.1);
-			//program.alphaEnabled = true;
-			
-			//program.setActiveTextureGlIndex(texture, 2);// only after update
+		
+		var textureData = new TextureData(512, 512);
 
-			
-			display.addProgram(program);    // programm to display
+		// draw something rectangle inside
+		for (y in 0...128) {
+			for (x in 0...256) {
+				textureData.setPixel(x,y, Color.YELLOW);
+				// textureData.setPixelRGBA(x,y, Color.YELLOW);
+			}	
+		}
 
+		var texture = new Texture(512, 512);
+		texture.setData(textureData);
+		
+		program.setTexture(texture, "custom");
+		//program.discardAtAlpha(0.1);
+		//program.alphaEnabled = true;
 			
-			element.w = 512;// image.width;
-			element.h = 512;// image.height;
-			buffer.updateElement(element);
-			
-			peoteView.start();
-		});
+		display.addProgram(program);  // programm to display
 	}
 	
-	// ----------- Lime events ------------------
-
-	override function onKeyDown (keyCode:KeyCode, modifier:KeyModifier):Void
-	{
-		switch (keyCode) {
-			case KeyCode.L:
-				if (program.hasTexture(texture, "custom")) program.removeAllTexture("custom");
-				else {
-					program.setMultiTexture([texture], "custom");
-					program.setActiveTextureGlIndex(texture, 3);
-				}
-			case KeyCode.T:
-				if (program.hasTexture(texture)) program.removeTexture(texture, "custom");
-				else program.setTexture(texture, "custom");
-			default:
-		}
-	}
 
 
 }

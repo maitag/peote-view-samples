@@ -96,8 +96,8 @@ class TextureSimple extends Application
 		
 		Loader.image ("assets/peote_tiles.png", true, function (image:Image) {
 			//texture = new Texture(image.width, image.height);
-			texture.setImage(image,0);
-			texture.setImage(image.clone(),1); // TODO: throw Error if same image inside multi slot
+			texture.setData(image,0);
+			texture.setData(image.clone(),1); // TODO: throw Error if same image inside multi slot
 			
 			//program.autoUpdateTextures = false;
 			program.setTexture(texture, "custom");
@@ -127,7 +127,7 @@ class TextureSimple extends Application
 		trace("preload complete");
 		// sync loading for HTML5 only works with embed=true for assets inside project.xml !
 		texture = new Texture(512, 512, 2);
-		texture.setImage(Assets.getImage("assets/peote_tiles.png"));
+		texture.setData(Assets.getImage("assets/peote_tiles.png"));
 		program.setTexture(texture, "custom");
 		*/
 	}
