@@ -115,7 +115,7 @@ class GLPicking extends Application
 			trace("loading complete");
 			var texture = new Texture(26, 37);
 			// var texture = new Texture(26, 37, {mipmap:false, smoothShrink:false, smoothMipmap:false, powerOfTwo:false});
-			texture.setImage(image);
+			texture.setData(image);
 			program.setTexture(texture, "custom");
 		});
 	}

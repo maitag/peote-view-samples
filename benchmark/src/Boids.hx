@@ -106,7 +106,7 @@ class Boids extends Application
     private function onImageLoad(image:Image)
 	{
         var texture = new Texture(image.width, image.height);
-        texture.setImage(image);
+        texture.setData(image);
 
         buffer = new Buffer<Boid>(boidCount, 4096); // automatic grow buffersize about 4096
 		program = new Program(buffer); //Sprite buffer

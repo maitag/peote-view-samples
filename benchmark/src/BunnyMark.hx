@@ -101,7 +101,7 @@ class BunnyMark extends Application
     private function onImageLoad(image:Image)
 	{
         var texture = new Texture(image.width, image.height);
-        texture.setImage(image);
+        texture.setData(image);
 
         var program = new Program(buffer); //Sprite buffer
         program.addTexture(texture, "custom"); //Sets image for the sprites

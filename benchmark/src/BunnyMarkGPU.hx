@@ -89,7 +89,7 @@ class BunnyMarkGPU extends Application
 		{			
 			var texture = new Texture(image.width, image.height);
 			
-			texture.setImage(image);
+			texture.setData(image);
 			
 			program.addTexture(texture, "custom");
 					

@@ -8,7 +8,7 @@
 	<!-- check this for GG-Playstore: <setenv name="ANDROID_GRADLE_TASK" value=":app:bundleRelease" /> -->
 
 	<!-- samples -->
-	<app main="StencilMask" path="bin" file="Main" />
+	<app main="DepthBlend" path="bin" file="Main" />
 	<!--
 		DepthBlend,
 		BlendAlphaMode,

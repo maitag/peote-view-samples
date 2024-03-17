@@ -49,7 +49,7 @@ class FramebufferChain extends Application {
 		program.setTexture(frameBuffers["fore"].texture, "fore", true);
 		program.setColorFormula("back + fore");
 
-		program.alphaEnabled = true;
+		program.blendEnabled = true;
 		program.discardAtAlpha(null);
 		display.addProgram(program);
 
@@ -137,7 +137,7 @@ class Framebuffer {
 		display = new Display(0, 0, width, height);
 		buffer = new Buffer<Elem>(16, 16, true);
 		program = new Program(buffer);
-		program.alphaEnabled = true;
+		program.blendEnabled = true;
 		program.discardAtAlpha(null);
 		display.addProgram(program);
 		

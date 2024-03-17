@@ -84,7 +84,7 @@ class DepthBlend extends Application
 			var texture = new Texture(32, 32);
 			var flower = new Image(null, 0, 0, 32, 32);
 			flower.copyPixels(image, new Rectangle(128+32, 0, 32, 32), new Vector2(0, 0));
-			texture.setImage(flower);
+			texture.setData(flower);
 			programL.setTexture(texture, "custom");
 		});
 		
