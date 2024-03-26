@@ -65,7 +65,7 @@ class TextureDataInOut extends Application
 		// draw something rectangle inside
 		for (y in 0...128) {
 			for (x in 0...256) {
-				textureData.setPixel(x,y, Color.YELLOW);
+				textureData.setColor(x,y, Color.YELLOW);
 				// textureData.setPixelRGBA(x,y, Color.YELLOW);
 			}	
 		}
