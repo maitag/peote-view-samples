@@ -19,6 +19,8 @@ import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
 import peote.view.Element;
+import peote.view.TextureData;
+import peote.view.TextureFormat;
 
 class Elem implements Element
 {
@@ -89,15 +91,20 @@ class TextureSimple extends Application
 		buffer  = new Buffer<Elem>(100);
 		program = new Program(buffer);
 		
-		texture = new Texture(512, 512, 2);
 		
 		element  = new Elem(0, 0);
 		buffer.addElement(element);     // element to buffer
 		
-		Loader.image ("assets/peote_tiles.png", true, function (image:Image) {
-			//texture = new Texture(image.width, image.height);
-			texture.setData(image,0);
-			texture.setData(image.clone(),1); // TODO: throw Error if same image inside multi slot
+		Loader.image ("assets/hxMeat.jpg", true, function (image:Image)
+		// Loader.image ("assets/peote_tiles.png", true, function (image:Image)
+		{	
+			//texture = Texture.fromData(image);
+			//texture = Texture.fromData(TextureData.RGBfrom( image ));
+
+			texture = new Texture(512, 512, 1, {format:TextureFormat.RGB});
+			
+			// texture.setData(image, 0);
+			texture.setData( TextureData.RGBfrom( image ) );
 			
 			//program.autoUpdateTextures = false;
 			program.setTexture(texture, "custom");

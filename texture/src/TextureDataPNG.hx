@@ -66,8 +66,8 @@ class TextureDataPNG extends Application
 
 		// images saved by gimp:
 		// Loader.bytes("assets/suzanneGrey.png", true, function (bytes:Bytes)
-		// Loader.bytes("assets/suzanneGrey16.png", true, function (bytes:Bytes)  // 16 bit per colorchannel will result here into FLOAT_R
-		Loader.bytes("assets/suzanneGreyAlpha.png", true, function (bytes:Bytes)
+		Loader.bytes("assets/suzanneGrey16.png", true, function (bytes:Bytes)  // 16 bit per colorchannel will result here into FLOAT_R
+		// Loader.bytes("assets/suzanneGreyAlpha.png", true, function (bytes:Bytes)
 		// Loader.bytes("assets/suzanneGreyAlpha16.png", true, function (bytes:Bytes)  // 16 bit per colorchannel will result here into FLOAT_RG
 		
 		// images saved by blender compositor:

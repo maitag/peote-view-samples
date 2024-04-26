@@ -114,18 +114,21 @@ class TextureCaching extends Application
 			"http://maitag.de/semmi/blender/mandelbulb/mandelverse_13.blend.jpg",
 			], //true,
 			function(index:Int, loaded:Int, size:Int) {
-				trace(' File number $index progress ' + Std.int(loaded / size * 100) + "%" , ' ($loaded / $size)');
+				// trace(' File number $index progress ' + Std.int(loaded / size * 100) + "%" , ' ($loaded / $size)');
 			},
 			function(loaded:Int, size:Int) {
-				trace(' Progress overall: ' + Std.int(loaded / size * 100) + "%" , ' ($loaded / $size)');
+				// trace(' Progress overall: ' + Std.int(loaded / size * 100) + "%" , ' ($loaded / $size)');
 			},
 			function(index:Int, image:Image) { // after every single image is loaded
 				trace('File number $index loaded completely.');
-				var p = textureCache.addImage(image);
-				trace( '${image.width}x${image.height}', "texture-unit:"+p.unit,"texture-slot"+p.slot);
-				var x = index % 8;
-				var y = Std.int(index / 8);
-				buffer.addElement(new Elem(x*100, y*100, 100, 100, image.width, image.height, p.unit, p.slot));
+				var p = textureCache.addData(image);
+				if (p!=null) {
+					trace( '${image.width}x${image.height}', "texture-unit:"+p.unit,"texture-slot"+p.slot);
+					var x = index % 8;
+					var y = Std.int(index / 8);
+					buffer.addElement(new Elem(x*100, y*100, 100, 100, image.width, image.height, p.unit, p.slot));
+				}
+				else throw("Cache is full");
 			},
 			function(images:Array<Image>) { // after all images is loaded
 				trace(' --- all images loaded ---');

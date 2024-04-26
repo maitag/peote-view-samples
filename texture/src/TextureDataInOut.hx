@@ -49,7 +49,7 @@ class TextureDataInOut extends Application
 	public function startSample(window:Window)
 	{	
 		var peoteView = new PeoteView(window);
-		var display   = new Display(10, 10, 512, 512, Color.GREY3);
+		var display   = new Display(10, 10, 512, 512, Color.GREY2);
 
 		peoteView.addDisplay(display);  // display to view
 		
@@ -66,7 +66,7 @@ class TextureDataInOut extends Application
 		for (y in 0...128) {
 			for (x in 0...256) {
 				textureData.setColor(x,y, Color.YELLOW);
-				// textureData.setPixelRGBA(x,y, Color.YELLOW);
+				// textureData.setColor_RGBA(x,y, Color.YELLOW);
 			}	
 		}
 
