@@ -9,14 +9,20 @@
 
 
 	<!-- samples -->
-	<app main="BunnyMark" path="bin" file="Main" />
+	<app main="BunnyMarkMulti" path="bin" file="Main" />
 	<!--
 		BunnyMark,
 		BunnyMarkGPU,
+		BunnyMarkMulti,
 		MouseEvents,
 		Boids,
 		CheckTextureMemory,
 	-->
+	
+	<!-- for BunnyMarkMulti -->
+	<define name="programs" value="1000" />
+	<define name="bunniesPerProgram" value="300" />
+
 	
 	<define name="bunnies" value="500000" />
 	<define name="bunnies" value= "60000" if="android" />
@@ -52,7 +58,7 @@
 	<!--<haxedef name="peoteview_debug_display" />-->
 	<!--<haxedef name="peoteview_debug_program" />-->
 	<!--<haxedef name="peoteview_debug_texture" />-->
-	<haxedef name="peoteview_debug_shader" />
+	<!-- <haxedef name="peoteview_debug_shader" /> -->
 
 	<!-- <haxedef name="webgl-debug" /> --> <!-- try with chrome and look here: https://www.khronos.org/webgl/wiki/Debugging -->
 	<!-- <haxedef name="source-map-content" /> --> <!-- to debug with chrome it needs also "-debug" -->
