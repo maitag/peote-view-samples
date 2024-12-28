@@ -21,7 +21,9 @@
 	
 	<!-- for BunnyMarkMulti -->
 	<define name="programs" value="1000" />
+	<define name="textures" value="32" />
 	<define name="bunniesPerProgram" value="300" />
+	<define name="bunniesPerProgram" value=  "30" if="neko" />
 
 	
 	<define name="bunnies" value="500000" />

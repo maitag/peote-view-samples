@@ -55,17 +55,20 @@ class BunnyMarkMulti extends Application
 {
 	var bunnies:Array<Bunny>;
 	var buffers:Vector<Buffer<Bunny>>;
+	var textures:Vector<Texture>;
 	
 	var fps:FPS;
 	var peoteView:PeoteView;
+	
 	var gravity:Float;
 	var minX:Int;
 	var minY:Int;
 	var maxX:Int;
 	var maxY:Int;
 	
-	var bunnyCount:Int = 100;
-	var programCount:Int = 10;
+	var programCount:Int = 1000;
+	var textureCount:Int = 32;
+	var bunnyCount:Int = 300;
 	
 	var isStart:Bool = false;
 	
@@ -82,15 +85,21 @@ class BunnyMarkMulti extends Application
 
 	public function startSample(window:Window)
 	{
+		#if programs
+		programCount = Std.parseInt (haxe.macro.Compiler.getDefine ("programs"));
+		#end
+		trace("Programs:", programCount);
+
+		#if textures
+		textureCount = Std.parseInt (haxe.macro.Compiler.getDefine ("textures"));
+		#end
+		trace("Textures:", textureCount);
+
 		#if bunniesPerProgram
 		bunnyCount = Std.parseInt (haxe.macro.Compiler.getDefine ("bunniesPerProgram"));
 		#end
 		trace("bunniesPerProgram:", bunnyCount);
 
-		#if programs
-		programCount = Std.parseInt (haxe.macro.Compiler.getDefine ("programs"));
-		#end
-		trace("Programs:", programCount);
 
 		minX = 0;
 		maxX = window.width;
@@ -106,18 +115,29 @@ class BunnyMarkMulti extends Application
 
 	private function onImageLoad(image:Image)
 	{
-		var texture = new Texture(image.width, image.height);
-		texture.setData(image);
+		// create textures
+		textures = new Vector(textureCount);
+		for (t in 0...textureCount) {
+			var texture = new Texture(image.width, image.height);
+			texture.setData(image);
+			textures.set(t, texture);
+		}
 
+		// create buffers
 		buffers = new Vector(programCount);
 		var display = new Display(0, 0, maxX, maxY, Color.GREEN);
 
+		var t:Int = 0;
 		for (i in 0...programCount) {
 			var buffer = new Buffer<Bunny>(bunnyCount);
 			buffers.set(i, buffer);
 			
 			var program = new Program(buffer); //Sprite buffer
-			program.addTexture(texture, "custom"); //Sets image for the sprites
+
+			program.addTexture(textures.get(t), "custom"); //Sets image for the sprites
+
+			t = (t+1) % textureCount;
+			
 			//program.setVertexFloatPrecision("low");
 			//program.setFragmentFloatPrecision("low");
 
