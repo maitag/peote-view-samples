@@ -53,7 +53,7 @@ class Bunny implements Element
 class BunnyMark extends Application
 {
 	var addingBunnies:Bool;
-	var bunnies:Array<Bunny>;
+	// var bunnies = new Array<Bunny>();
 	var buffer:Buffer<Bunny>;
 	var fps:FPS;
 	var peoteView:PeoteView;
@@ -91,7 +91,7 @@ class BunnyMark extends Application
 		maxY = window.height;
 		gravity = 0.5;
 		fps = new FPS ();
-		bunnies = new Array ();
+		
 		peoteView = new PeoteView(window); // at now this should stay first ( to initialize PeoteGL from gl-context! )
         buffer = new Buffer<Bunny>(bunnyCount, 4096); // automatic grow buffersize about 4096
 
@@ -127,7 +127,7 @@ class BunnyMark extends Application
 		bunny.y = 0;
 		bunny.speedX = Math.random () * 5;
 		bunny.speedY = (Math.random () * 5) - 2.5;
-		bunnies.push(bunny);
+		// bunnies.push(bunny);
 		buffer.addElement(bunny);
 	}
 	
@@ -137,7 +137,8 @@ class BunnyMark extends Application
 	{
 		if (!isStart) return;
 		
-		for (bunny in bunnies) 
+		// for (bunny in bunnies)
+		for (bunny in buffer)
 		{
 			bunny.x += bunny.speedX;
 			bunny.y += bunny.speedY;
@@ -190,7 +191,8 @@ class BunnyMark extends Application
 	override function onMouseUp (x:Float, y:Float, button:MouseButton):Void
 	{
 		addingBunnies = false;
-		trace ('${bunnies.length} bunnies @ ${fps.current} FPS');
+		// trace ('${bunnies.length} bunnies @ ${fps.current} FPS');
+		trace ('${buffer.length} bunnies @ ${fps.current} FPS');
 	}
 	
 	override function onKeyDown (keyCode:KeyCode, modifier:KeyModifier):Void
