@@ -94,7 +94,7 @@ class TextureSlotTiles extends Application
 		
 		program.discardAtAlpha(0.3, false);
 		program.addTexture(texture0, "custom", false);
-		//program.updateTextures();
+		
 		
 		element0  = new Elem(0, 0, 200, 150);
 		element0.slot = 0;
@@ -107,8 +107,10 @@ class TextureSlotTiles extends Application
 		loadImage(texture1, "assets/peote_tiles.png", 1);
 		loadImage(texture1, "assets/peote_tiles_bunnys.png", 2);
 		
-		program.addTexture(texture1, "custom");
-		program.updateTextures();
+		program.addTexture(texture1, "custom", false);
+
+		// updates all texture and recompiles the shader
+		program.update();
 		
 		element1  = new Elem(0, 150, 200, 200);
 		element1.unit = 1;

@@ -123,7 +123,7 @@ class MultiTextures extends Application
 		);
 		*/
 		
-		program.updateTextures(); // updates gl-textures and rebuilding shadercode
+		program.update(); // updates gl-textures and rebuilding shadercode
 				
 		loadImage(texture0, "assets/peote_tiles.png");
 		loadImage(texture1, "assets/peote_tiles_bunnys.png");

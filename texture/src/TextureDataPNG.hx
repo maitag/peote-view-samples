@@ -95,8 +95,11 @@ class TextureDataPNG extends Application
 			var texture = new Texture(textureData.width, textureData.height, 1, {format: textureData.format});
 			texture.setData(textureData);
 		
+			// program.autoUpdate = false;
 			program.setTexture(texture, "custom");
-			//program.discardAtAlpha(0.1);
+			// program.discardAtAlpha(0.1);
+			// program.update();
+			
 			program.blendEnabled = true;
 
 			display.addProgram(program);  // programm to display

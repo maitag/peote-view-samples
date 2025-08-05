@@ -53,6 +53,7 @@ class Main extends Application {
 
 		display.addProgram(textProgram);
 
+		textProgram.add(new Text(0, 0, "\\o/", {letterWidth: 8, letterHeight: 8}));
 		
 		// create a text-instance
 		var text = new Text(4, 100, "PUSH THE\n BUTTON!\n\nhello world\nyjiJ;Z_", {
@@ -61,6 +62,7 @@ class Main extends Application {
 			letterHeight: 32*2
 		});
 		textProgram.add(text);
+
 
 		// trace("this should be null:",text.lineSpace);
 		
@@ -88,7 +90,9 @@ class Main extends Application {
 
 		haxe.Timer.delay( ()->{
 			text.text = "HOHO";
-			textProgram.update(text);
+			textProgram.updateText(text);
+			
+			textProgram.remove(text1);
 		}, 4000);
 
 		haxe.Timer.delay( ()->{
@@ -99,13 +103,15 @@ class Main extends Application {
 			text.lineSpace = 10;
 			text.text = "winter\nis\ncomming";
 			text.bgColor = Color.GREY2;
-			textProgram.update(text);
+			textProgram.updateText(text);
+
+			textProgram.add(text1);
 		}, 5000);
 
 		// move text1 behind
 		haxe.Timer.delay( ()->{
 			text1.zIndex = -1;
-			textProgram.update(text1);
+			textProgram.updateText(text1);
 		}, 6000);
 
 		haxe.Timer.delay( ()->{

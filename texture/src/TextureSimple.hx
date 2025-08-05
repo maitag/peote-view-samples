@@ -106,9 +106,9 @@ class TextureSimple extends Application
 			// texture.setData(image, 0);
 			texture.setData( TextureData.RGBfrom( image ) );
 			
-			//program.autoUpdateTextures = false;
-			program.setTexture(texture, "custom");
-			//program.updateTextures();
+			//program.autoUpdate = false;
+			program.setTexture(texture);
+			//program.update();
 			program.discardAtAlpha(0.1);
 			//program.alphaEnabled = true;
 			//program.setActiveTextureGlIndex(texture, 2);// only after update
