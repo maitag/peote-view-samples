@@ -94,7 +94,7 @@ class BunnyMark extends Application
 		
 		peoteView = new PeoteView(window); // at now this should stay first ( to initialize PeoteGL from gl-context! )
         buffer = new Buffer<Bunny>(bunnyCount, 4096); // automatic grow buffersize about 4096
-
+		
 		Loader.image ("assets/wabbit_alpha.png", true, onImageLoad);
 	}
 
@@ -137,9 +137,10 @@ class BunnyMark extends Application
 	{
 		if (!isStart) return;
 		
-		// for (bunny in bunnies)
-		for (bunny in buffer)
-		{
+		// for (bunny in bunnies) {
+		// for (i in 0...buffer.length) { var bunny = buffer.getElement(i);
+		for (bunny in buffer) {
+
 			bunny.x += bunny.speedX;
 			bunny.y += bunny.speedY;
 			bunny.speedY += gravity;
