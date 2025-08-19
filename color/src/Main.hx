@@ -69,10 +69,21 @@ class Main extends Application {
 		var c:Color;
 
 		c = Color.mix(Color.RED, Color.GREEN, 0.7);
-		trace(c);
+		trace("mix"+c);
 
 		c = Color.rnd(0x440000e0, 0x550000ff);
-		trace(c);
+		trace("rnd"+c);
+
+
+		trace("-- HSV --");
+		c = Color.HSV(0.5, 0.5, 1.0);
+		trace ("rF:"+c.rF, "gF:"+c.gF, "bF:"+c.bF, "hex:"+c);
+		trace ("hue:"+c.hue, "saturationHSV:"+c.saturationHSV, "valueHSV:"+c.valueHSV );
+
+		trace("-- HSL --");
+		c = Color.HSL(0.5, 1.0, 0.75);
+		trace ("rF:"+c.rF, "gF:"+c.gF, "bF:"+c.bF, "hex:"+c);
+		trace ("hue:"+c.hue, "saturationHSL:"+c.saturationHSL, "luminanceHSL:"+c.luminanceHSL );
 
 	}
 
