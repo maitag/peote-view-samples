@@ -1,5 +1,7 @@
 package;
 
+import peote.view.element.Elem;
+import peote.view.Program;
 import haxe.Timer;
 import haxe.CallStack;
 import lime.app.Application;
@@ -66,6 +68,51 @@ class Main extends Application {
 		}
 		*/
 
+		// create some elements in different colors:
+		var buffer = new Buffer<Elem>(4096, 4096);
+		var progam = new Program(buffer);
+		display.addProgram(progam);
+
+		var x:Int = 360;
+		var y:Int = 10;
+		var w:Int = 6;
+		var h:Int = 6;
+		var nx:Int = 20; // amount of horizontal elems
+		var ny:Int = 20; // amount of vertical elems
+		
+		// HSV
+		textProgram.add( new Text(x, y, "HSV:") );
+		y+=20;
+		for (j in 0...ny) {
+			for (i in 0...nx) {
+				buffer.addElement( new Elem(    x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, (j+1)/ny, 0.25) ) );
+				buffer.addElement( new Elem(150+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, (j+1)/ny, 0.5) ) );
+				buffer.addElement( new Elem(300+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, (j+1)/ny, 0.75) ) );
+
+				buffer.addElement( new Elem(    x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 0.15, (j+1)/ny) ) );
+				buffer.addElement( new Elem(150+x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 0.5, (j+1)/ny) ) );
+				buffer.addElement( new Elem(300+x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 1.0, (j+1)/ny) ) );
+			}
+		}
+
+		// HSL
+		y += 280;
+		textProgram.add( new Text(x, y, "HSL:") );
+		y+=20;
+		for (j in 0...ny) {
+			for (i in 0...nx) {
+				buffer.addElement( new Elem(    x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, (j+1)/ny, 0.25) ) );
+				buffer.addElement( new Elem(150+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, (j+1)/ny, 0.5) ) );
+				buffer.addElement( new Elem(300+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, (j+1)/ny, 0.75) ) );
+
+				buffer.addElement( new Elem(    x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 0.15, (j+1)/ny) ) );
+				buffer.addElement( new Elem(150+x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 0.5, (j+1)/ny) ) );
+				buffer.addElement( new Elem(300+x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 1.0, (j+1)/ny) ) );
+			}
+		}
+
+		// to test some of Color functions:
+		/* 
 		var c:Color;
 
 		c = Color.mix(Color.RED, Color.GREEN, 0.7);
@@ -73,7 +120,6 @@ class Main extends Application {
 
 		c = Color.rnd(0x440000e0, 0x550000ff);
 		trace("rnd"+c);
-
 
 		trace("-- HSV --");
 		c = Color.HSV(0.5, 0.5, 1.0);
@@ -84,7 +130,7 @@ class Main extends Application {
 		c = Color.HSL(0.5, 1.0, 0.75);
 		trace ("rF:"+c.rF, "gF:"+c.gF, "bF:"+c.bF, "hex:"+c);
 		trace ("hue:"+c.hue, "saturationHSL:"+c.saturationHSL, "luminanceHSL:"+c.luminanceHSL );
-
+		*/
 	}
 
 
