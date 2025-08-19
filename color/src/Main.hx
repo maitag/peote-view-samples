@@ -1,18 +1,29 @@
 package;
 
-import peote.view.element.Elem;
-import peote.view.Program;
-import haxe.Timer;
 import haxe.CallStack;
 import lime.app.Application;
 import lime.ui.Window;
 
 import peote.view.PeoteView;
 import peote.view.Display;
-import peote.view.Color;
 import peote.view.Buffer;
+import peote.view.Program;
+import peote.view.Color;
 
 import peote.view.text.*;
+import peote.view.element.Elem;
+
+class ElemColAnim implements peote.view.Element
+{
+	@posX public var x:Int;
+	@posY public var y:Int;
+	@sizeX public var w:Int;
+	@sizeY public var h:Int;
+	@color @anim("Color") @time("Color", "pingpong") public var c:Color;
+	public function new(_x:Int, _y:Int, _w:Int, _h:Int) {
+		x = _x;	y = _y; w = _w; h = _h;
+	}
+}
 
 class Main extends Application {
 
@@ -68,10 +79,14 @@ class Main extends Application {
 		}
 		*/
 
+
+		// -----------------------------------------------
+
 		// create some elements in different colors:
 		var buffer = new Buffer<Elem>(4096, 4096);
 		var progam = new Program(buffer);
 		display.addProgram(progam);
+
 
 		var x:Int = 360;
 		var y:Int = 10;
@@ -110,6 +125,33 @@ class Main extends Application {
 				buffer.addElement( new Elem(300+x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 1.0, 1-(j+1)/ny) ) );
 			}
 		}
+
+		// ---- finally ANIMATE from HSV to HSL into pingpong -----
+
+		var bufferAnim = new Buffer<ElemColAnim>(4096, 4096);
+		var progamAnim = new Program(bufferAnim);
+		display.addProgram(progamAnim);
+
+
+		y += 160;
+		w = 2;
+		h = 2;
+		nx = 210; // amount of horizontal elems
+		ny = 90; // amount of vertical elems
+		
+		textProgram.add( new Text(x, y, "HSV to HSL") );
+		y+=20;
+		for (j in 0...ny) {
+			for (i in 0...nx) {
+				var e = new ElemColAnim(x + i*w, y + j*h, w, h);
+				e.animColor( Color.HSV((i+1)/nx, 1.0, 1-(j+1)/ny), Color.HSL((i+1)/nx, 1.0, 1-(j+1)/ny) );
+				e.timeColor(0.0, 2.0);
+				bufferAnim.addElement( e );
+			}
+		}
+
+		peoteView.start();
+		// -----------------------------------------------
 
 		// to test some of Color functions:
 		/* 
@@ -182,3 +224,4 @@ class Main extends Application {
 	// override function onWindowMinimize():Void { trace("onWindowMinimize"); }
 	// override function onWindowRestore():Void { trace("onWindowRestore"); }
 }
+
