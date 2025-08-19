@@ -75,10 +75,10 @@ class Main extends Application {
 
 		var x:Int = 360;
 		var y:Int = 10;
-		var w:Int = 6;
-		var h:Int = 6;
-		var nx:Int = 20; // amount of horizontal elems
-		var ny:Int = 20; // amount of vertical elems
+		var w:Int = 1;
+		var h:Int = 1;
+		var nx:Int = 120; // amount of horizontal elems
+		var ny:Int = 50; // amount of vertical elems
 		
 		// HSV
 		textProgram.add( new Text(x, y, "HSV:") );
@@ -89,14 +89,14 @@ class Main extends Application {
 				buffer.addElement( new Elem(150+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, (j+1)/ny, 0.5) ) );
 				buffer.addElement( new Elem(300+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, (j+1)/ny, 0.75) ) );
 
-				buffer.addElement( new Elem(    x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 0.15, (j+1)/ny) ) );
-				buffer.addElement( new Elem(150+x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 0.5, (j+1)/ny) ) );
-				buffer.addElement( new Elem(300+x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 1.0, (j+1)/ny) ) );
+				buffer.addElement( new Elem(    x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 0.15,1-(j+1)/ny) ) );
+				buffer.addElement( new Elem(150+x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 0.5, 1-(j+1)/ny) ) );
+				buffer.addElement( new Elem(300+x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 1.0, 1-(j+1)/ny) ) );
 			}
 		}
 
 		// HSL
-		y += 280;
+		y += 160;
 		textProgram.add( new Text(x, y, "HSL:") );
 		y+=20;
 		for (j in 0...ny) {
@@ -105,9 +105,9 @@ class Main extends Application {
 				buffer.addElement( new Elem(150+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, (j+1)/ny, 0.5) ) );
 				buffer.addElement( new Elem(300+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, (j+1)/ny, 0.75) ) );
 
-				buffer.addElement( new Elem(    x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 0.15, (j+1)/ny) ) );
-				buffer.addElement( new Elem(150+x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 0.5, (j+1)/ny) ) );
-				buffer.addElement( new Elem(300+x + i*w, 130+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 1.0, (j+1)/ny) ) );
+				buffer.addElement( new Elem(    x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 0.15,1-(j+1)/ny) ) );
+				buffer.addElement( new Elem(150+x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 0.5, 1-(j+1)/ny) ) );
+				buffer.addElement( new Elem(300+x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 1.0, 1-(j+1)/ny) ) );
 			}
 		}
 
