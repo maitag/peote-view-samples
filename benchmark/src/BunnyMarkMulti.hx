@@ -16,6 +16,8 @@ import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
+import peote.view.text.TextProgram;
+import peote.view.text.Text;
 
 import peote.view.Element;
 
@@ -57,7 +59,6 @@ class BunnyMarkMulti extends Application
 	var buffers:Vector<Buffer<Bunny>>;
 	var textures:Vector<Texture>;
 	
-	var fps:FPS;
 	var peoteView:PeoteView;
 	
 	var gravity:Float;
@@ -70,6 +71,10 @@ class BunnyMarkMulti extends Application
 	var textureCount:Int = 32;
 	var bunnyCount:Int = 300;
 	
+	var fpsDisplay:FpsDisplay;
+	var textProgram:TextProgram;
+	var bunniesAmountText:Text;
+
 	var isStart:Bool = false;
 	
 	override function onWindowCreate():Void
@@ -100,13 +105,12 @@ class BunnyMarkMulti extends Application
 		#end
 		trace("bunniesPerProgram:", bunnyCount);
 
-
 		minX = 0;
 		maxX = window.width;
 		minY = 0;
 		maxY = window.height;
 		gravity = 0.5;
-		fps = new FPS ();
+		
 		bunnies = new Array ();
 		peoteView = new PeoteView(window); // at now this should stay first ( to initialize PeoteGL from gl-context! )
 
@@ -144,7 +148,6 @@ class BunnyMarkMulti extends Application
 			display.addProgram(program);    // program to display
 		}
 
-
 		peoteView.addDisplay(display);  // display to peoteView
 
 		// adding bunnies
@@ -158,6 +161,17 @@ class BunnyMarkMulti extends Application
 				bunnies.push(bunny);
 				buffers.get(i).addElement(bunny);
 			}
+
+		// -------- bunny counter ----------
+		textProgram = new TextProgram({fgColor:Color.YELLOW, bgColor:Color.RED1, letterWidth: 12,	letterHeight: 12});
+		textProgram.add(new Text(100, 0, "Bunnies: "));
+		bunniesAmountText = new Text(100+9*12, 0, Std.string(programCount*bunnyCount));
+		textProgram.add(bunniesAmountText);
+		display.addProgram(textProgram);
+	
+		// -------- FpsDisplay ----------
+		fpsDisplay = new FpsDisplay(0, 0, 12, "FPS:", Color.YELLOW, Color.RED1);
+		peoteView.addDisplay(fpsDisplay);
 
 		isStart = true;
 	}
@@ -202,18 +216,15 @@ class BunnyMarkMulti extends Application
 				bunny.y = minY;
 			}
 		}
-		
-		
-		for (i in 0...programCount) buffers.get(i).update();	
-		
-		fps.update (deltaTime);
+				
+		for (i in 0...programCount) buffers.get(i).update();			
 	}
 
-	override function onMouseDown (x:Float, y:Float, button:MouseButton):Void
+	override function render(_):Void 
 	{
-		trace ('${bunnies.length} bunnies @ ${fps.current} FPS');
+		if (isStart) fpsDisplay.step();
 	}
-
+	
 	override function onKeyDown (keyCode:KeyCode, modifier:KeyModifier):Void
 	{
 		switch (keyCode) {
@@ -224,33 +235,3 @@ class BunnyMarkMulti extends Application
 
 }
 
-// --------------------------------------------
-
-class FPS
-{
-	public var current (get, null):Int;
-	
-	private var totalTime:Int;
-	private var times:Array<Float>;
-		
-	public function new () 
-	{
-		totalTime = 0;
-		times = new Array ();
-	}
-		
-	public function update (deltaTime:Int):Void
-	{
-		totalTime += deltaTime;
-		times.push (totalTime);		
-	}
-	
-	private function get_current ():Int
-	{
-		while (times[0] < totalTime - 1000)
-		{			
-			times.shift ();		
-		}		
-		return times.length;
-	}	
-}

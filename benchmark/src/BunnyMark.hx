@@ -15,6 +15,8 @@ import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
+import peote.view.text.TextProgram;
+import peote.view.text.Text;
 
 import peote.view.Element;
 
@@ -52,19 +54,23 @@ class Bunny implements Element
 
 class BunnyMark extends Application
 {
-	var addingBunnies:Bool;
-	// var bunnies = new Array<Bunny>();
 	var buffer:Buffer<Bunny>;
-	var fps:FPS;
 	var peoteView:PeoteView;
+
 	var gravity:Float;
 	var minX:Int;
 	var minY:Int;
 	var maxX:Int;
 	var maxY:Int;
 	
-	var bunnyCount:Int = 100;
+	var bunnyCount:Int = 1000;
+	var bunnyToAdd:Int =  100;
 	
+	var fpsDisplay:FpsDisplay;
+	var textProgram:TextProgram;
+	var bunniesAmountText:Text;
+	
+	var addingBunnies = false;
 	var isStart:Bool = false;
 	
 	override function onWindowCreate():Void
@@ -80,45 +86,57 @@ class BunnyMark extends Application
 
 	public function startSample(window:Window)
 	{
-        #if bunnies
+		#if bunnies
 		bunnyCount = Std.parseInt (haxe.macro.Compiler.getDefine ("bunnies"));
 		#end
-        //trace("Bunnies:", bunnyCount);
+		
+		#if bunniesToAdd
+		bunnyToAdd = Std.parseInt (haxe.macro.Compiler.getDefine ("bunniesToAdd"));
+		#end
 
 		minX = 0;
 		maxX = window.width;
 		minY = 0;
 		maxY = window.height;
 		gravity = 0.5;
-		fps = new FPS ();
 		
 		peoteView = new PeoteView(window); // at now this should stay first ( to initialize PeoteGL from gl-context! )
-        buffer = new Buffer<Bunny>(bunnyCount, 4096); // automatic grow buffersize about 4096
+		buffer = new Buffer<Bunny>(bunnyCount, 4096); // automatic grow buffersize about 4096
 		
 		Loader.image ("assets/wabbit_alpha.png", true, onImageLoad);
 	}
 
-    private function onImageLoad(image:Image)
+	private function onImageLoad(image:Image)
 	{
-        var texture = new Texture(image.width, image.height);
-        texture.setData(image);
+		var texture = new Texture(image.width, image.height);
+		texture.setData(image);
 
-        var program = new Program(buffer); //Sprite buffer
-        program.addTexture(texture, "custom"); //Sets image for the sprites
+		var program = new Program(buffer); //Sprite buffer
+		program.addTexture(texture, "custom"); //Sets image for the sprites
 
-        //program.setVertexFloatPrecision("low");
-        //program.setFragmentFloatPrecision("low");
+		//program.setVertexFloatPrecision("low");
+		//program.setFragmentFloatPrecision("low");
 
-        var display = new Display(0, 0, maxX, maxY, Color.GREEN);
-        display.addProgram(program);    // program to display
+		var display = new Display(0, 0, maxX, maxY, Color.GREEN);
+		display.addProgram(program);    // program to display
 
-        peoteView.addDisplay(display);  // display to peoteView
+		peoteView.addDisplay(display);  // display to peoteView
 
-        for (i in 0...bunnyCount) {
-            addBunny ();
-        }
-        isStart = true;
-    }
+		for (i in 0...bunnyCount) addBunny ();
+
+		// -------- bunny counter ----------
+		textProgram = new TextProgram({fgColor:Color.YELLOW, bgColor:Color.RED1, letterWidth: 12,	letterHeight: 12});
+		textProgram.add(new Text(100, 0, "Bunnies: "));
+		bunniesAmountText = new Text(100+9*12, 0, Std.string(bunnyCount));
+		textProgram.add(bunniesAmountText);
+		display.addProgram(textProgram);
+	
+		// -------- FpsDisplay ----------
+		fpsDisplay = new FpsDisplay(0, 0, 12, "FPS:", Color.YELLOW, Color.RED1);
+		peoteView.addDisplay(fpsDisplay);
+		
+		isStart = true;
+	}
 		
 	private function addBunny():Void
 	{
@@ -127,7 +145,6 @@ class BunnyMark extends Application
 		bunny.y = 0;
 		bunny.speedX = Math.random () * 5;
 		bunny.speedY = (Math.random () * 5) - 2.5;
-		// bunnies.push(bunny);
 		buffer.addElement(bunny);
 	}
 	
@@ -137,7 +154,6 @@ class BunnyMark extends Application
 	{
 		if (!isStart) return;
 		
-		// for (bunny in bunnies) {
 		// for (i in 0...buffer.length) { var bunny = buffer.getElement(i);
 		for (bunny in buffer) {
 
@@ -176,14 +192,20 @@ class BunnyMark extends Application
 		
 		if (addingBunnies)
 		{
-			for (i in 0...30) addBunny();	
+			for (i in 0...bunnyToAdd) addBunny();
+
+			bunniesAmountText.text = Std.string(buffer.length);
+			textProgram.updateText(bunniesAmountText);	
 		}
-		
-		fps.update (deltaTime);
-		
-		buffer.update();	
+				
+		buffer.update();
 	}
 
+	override function render(_):Void 
+	{
+		if (isStart) fpsDisplay.step();
+	}
+	
 	override function onMouseDown (x:Float, y:Float, button:MouseButton):Void
 	{
 		addingBunnies = true;
@@ -192,8 +214,6 @@ class BunnyMark extends Application
 	override function onMouseUp (x:Float, y:Float, button:MouseButton):Void
 	{
 		addingBunnies = false;
-		// trace ('${bunnies.length} bunnies @ ${fps.current} FPS');
-		trace ('${buffer.length} bunnies @ ${fps.current} FPS');
 	}
 	
 	override function onKeyDown (keyCode:KeyCode, modifier:KeyModifier):Void
@@ -204,35 +224,5 @@ class BunnyMark extends Application
 		}
 	}
 
-}
-
-// --------------------------------------------
-
-class FPS
-{
-	public var current (get, null):Int;
 	
-	private var totalTime:Int;
-	private var times:Array<Float>;
-		
-	public function new () 
-	{
-		totalTime = 0;
-		times = new Array ();
-	}
-		
-	public function update (deltaTime:Int):Void
-	{
-		totalTime += deltaTime;
-		times.push (totalTime);		
-	}
-	
-	private function get_current ():Int
-	{
-		while (times[0] < totalTime - 1000)
-		{			
-			times.shift ();		
-		}		
-		return times.length;
-	}	
 }

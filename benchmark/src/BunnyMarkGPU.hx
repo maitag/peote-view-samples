@@ -15,6 +15,8 @@ import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
+import peote.view.text.TextProgram;
+import peote.view.text.Text;
 
 import peote.view.Element;
 
@@ -48,13 +50,15 @@ class BunnyMarkGPU extends Application
 {
 	var peoteView:PeoteView;
 	var buffer:Buffer<Bunny>;
-	var fps:FPS;
 	
-	var addingBunnies:Bool;
-	var bunnyCount:Int = 100;
+	var bunnyCount:Int = 1000;
+	var bunnyToAdd:Int =  100;
 	
-	var bunnies:Int = 0;
+	var fpsDisplay:FpsDisplay;
+	var textProgram:TextProgram;
+	var bunniesAmountText:Text;
 	
+	var addingBunnies = false;
 	var isStart:Bool = false;
 	
 	override function onWindowCreate():Void
@@ -70,14 +74,16 @@ class BunnyMarkGPU extends Application
 
 	public function startSample(window:Window)
 	{	
-		fps = new FPS ();
-		
 		peoteView = new PeoteView(window);
 		
 		#if bunnies 
 		bunnyCount = Std.parseInt (haxe.macro.Compiler.getDefine ("bunnies"));
 		#end
-		
+
+		#if bunniesToAdd
+		bunnyToAdd = Std.parseInt (haxe.macro.Compiler.getDefine ("bunniesToAdd"));
+		#end
+
 		buffer = new Buffer<Bunny>(bunnyCount+65536, 65536); // automatic grow buffersize about 4096
 		
 		//var display = new Display(0, 0, window.width, window.height, Color.GREEN);
@@ -100,9 +106,20 @@ class BunnyMarkGPU extends Application
 			peoteView.addDisplay(display);  // display to peoteView
 			
 			for (i in 0...bunnyCount) addBunny (0,0);
+
+			// -------- bunny counter ----------
+			textProgram = new TextProgram({fgColor:Color.YELLOW, bgColor:Color.RED1, letterWidth: 12,	letterHeight: 12});
+			textProgram.add(new Text(100, 0, "Bunnies: "));
+			bunniesAmountText = new Text(100+9*12, 0, Std.string(bunnyCount));
+			textProgram.add(bunniesAmountText);
+			display.addProgram(textProgram);
+		
+			// -------- FpsDisplay ----------
+			fpsDisplay = new FpsDisplay(0, 0, 12, "FPS:", Color.YELLOW, Color.RED1);
+			peoteView.addDisplay(fpsDisplay);
 			
 			isStart = true;
-			peoteView.start();
+			peoteView.start(); // need for GPU-animation
 		});
 	}
 		
@@ -110,7 +127,6 @@ class BunnyMarkGPU extends Application
 	{
 		var bunny = new Bunny(x, y, peoteView.time);
 		buffer.addElement(bunny);
-		bunnies++;
 	}
 	
 	// ----------- Lime events ------------------
@@ -120,11 +136,17 @@ class BunnyMarkGPU extends Application
 		if (!isStart) return;
 		if (addingBunnies)
 		{			
-			for (i in 0...200) addBunny (0,0);		
+			for (i in 0...bunnyToAdd) addBunny (0,0);
+			bunniesAmountText.text = Std.string(buffer.length);
+			textProgram.updateText(bunniesAmountText);
 		}		
-		fps.update (deltaTime);
 	}
 
+	override function render(_):Void 
+	{
+		if (isStart) fpsDisplay.step();
+	}
+	
 	override function onMouseDown (x:Float, y:Float, button:MouseButton):Void
 	{
 		addingBunnies = true;
@@ -133,46 +155,14 @@ class BunnyMarkGPU extends Application
 	override function onMouseUp (x:Float, y:Float, button:MouseButton):Void
 	{
 		addingBunnies = false;
-		trace ('$bunnies bunnies @ ${fps.current} FPS');
 	}
 	
 	override function onKeyDown (keyCode:KeyCode, modifier:KeyModifier):Void
 	{
 		switch (keyCode) {
-			case KeyCode.SPACE:isStart = !isStart;
+			case KeyCode.SPACE:if (peoteView.isRun) peoteView.stop() else peoteView.start();
 			default:
 		}
 	}
 
-}
-
-// --------------------------------------------
-
-class FPS
-{
-	public var current (get, null):Int;
-	
-	private var totalTime:Int;
-	private var times:Array<Float>;
-		
-	public function new () 
-	{
-		totalTime = 0;
-		times = new Array ();
-	}
-		
-	public function update (deltaTime:Int):Void
-	{
-		totalTime += deltaTime;
-		times.push (totalTime);		
-	}
-	
-	private function get_current ():Int
-	{
-		while (times[0] < totalTime - 1000)
-		{			
-			times.shift ();		
-		}		
-		return times.length;
-	}
 }
