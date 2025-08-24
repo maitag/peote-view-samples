@@ -32,6 +32,7 @@
 	
 	<define name="bunniesToAdd" value="1000" />
 
+	<!-- <define name="peoteview_fps" /> -->
 	<!-- <define name="stats" if="html5" /> -->
 	
 	<!--<window fps="60" width="800" height="600" vsync="true" antialiasing="4" resizable="true" hardware="true" allow-shaders="true" require-shaders="true" depth-buffer="true" stencil-buffer="false" /> -->

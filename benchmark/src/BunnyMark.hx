@@ -126,13 +126,14 @@ class BunnyMark extends Application
 
 		// -------- bunny counter ----------
 		textProgram = new TextProgram({fgColor:Color.YELLOW, bgColor:Color.RED1, letterWidth: 12,	letterHeight: 12});
-		textProgram.add(new Text(100, 0, "Bunnies: "));
-		bunniesAmountText = new Text(100+9*12, 0, Std.string(bunnyCount));
+		textProgram.add(new Text(300, 0, "Bunnies: "));
+		bunniesAmountText = new Text(300+9*12, 0, Std.string(bunnyCount));
 		textProgram.add(bunniesAmountText);
 		display.addProgram(textProgram);
 	
 		// -------- FpsDisplay ----------
-		fpsDisplay = new FpsDisplay(0, 0, 12, "FPS:", Color.YELLOW, Color.RED1);
+		// fpsDisplay = new FpsDisplay(0, 0, 12, Color.YELLOW, Color.RED1);
+		fpsDisplay = new FpsDisplay(0, 0, 12, 0xc9f027ff, 0x104407ea);
 		peoteView.addDisplay(fpsDisplay);
 		
 		isStart = true;
