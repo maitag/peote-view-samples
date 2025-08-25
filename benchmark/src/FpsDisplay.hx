@@ -56,7 +56,7 @@ class FpsDisplay extends Display
 		textProgram.add(new Text(size*3, 4, " fps ", {fgColor:fgColor}));
 
 		// create a text-instance
-		fpsText = new Text(0, 4, "   ",);
+		fpsText = new Text(0, 4, "   ");
 		textProgram.add(fpsText);
 		
 		addProgram(textProgram);
