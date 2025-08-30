@@ -8,8 +8,9 @@
 	<!-- check this for GG-Playstore: <setenv name="ANDROID_GRADLE_TASK" value=":app:bundleRelease" /> -->
 
 	<!-- samples -->
-	<app main="ShaderInjection" path="bin" file="Main" />
+	<app main="ColorFormula" path="bin" file="Main" />
 	<!--
+		ColorFormula,
 		ShaderInjection,
 		CombineShaders,
 		CustomUniforms,
@@ -43,7 +44,7 @@
 	<!--<haxedef name="peoteview_debug_buffer" />-->
 	<!--<haxedef name="peoteview_debug_view" />-->
 	<!--<haxedef name="peoteview_debug_display" />-->
-	<!--<haxedef name="peoteview_debug_program" />-->
+	<!-- <haxedef name="peoteview_debug_program" /> -->
 	<!--<haxedef name="peoteview_debug_texture" />-->
 	<haxedef name="peoteview_debug_shader" />
 
