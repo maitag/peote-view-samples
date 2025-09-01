@@ -11,6 +11,9 @@
 	<window if="html5||android" width="0" height="0" />
 	
 	<app main="Main" path="bin" file="Main" />
+	<!-- <app main="LoadText" path="bin" file="LoadText" /> -->
+
+
 	<!-- <define name="stats" if="html5" /> -->
 	
 	<source path="src" />
@@ -40,5 +43,12 @@
 	<!-- <haxedef name="webgl-debug" /> --> <!-- try with chrome and look here: https://www.khronos.org/webgl/wiki/Debugging -->
 	<!-- <haxedef name="source-map-content" /> --> <!-- to debug with chrome id needs also "-debug" -->
 	<!-- <haxedef name="dump=pretty output" /> -->
+	<!-- <haxedef name="message.reporting=pretty" /> -->
+	<haxedef name="keep_inline_positions" />
+
+	<!-- for html5 and loading inside onPreloadComplete-event the assets need to be embed=true --> 
+	<assets path="assets" exclude="lime.svg" embed="false" />
+	
+	<icon path="assets/lime.svg" />
 	
 </project>
