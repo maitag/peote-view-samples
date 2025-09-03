@@ -18,8 +18,7 @@ import peote.view.Color;
 import peote.view.Element;
 import peote.view.TextureConfig;
 import peote.view.TextureCache;
-
-import utils.Loader;
+import peote.view.Load;
 
 class Elem implements Element
 {
@@ -88,11 +87,11 @@ class TextureCaching extends Application
 			]
 		);
 		
-		Loader.corsServer = "cors-anywhere.herokuapp.com";
+		Load.corsServer = "cors-anywhere.herokuapp.com";
 		
 		program.setMultiTexture(textureCache.textures, "custom");
 		
-		Loader.imageArray([
+		Load.imageArray([
 			"assets/test0.png",
 			"assets/test1.png",
 			"assets/peote_tiles.png",

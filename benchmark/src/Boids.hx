@@ -16,9 +16,9 @@ import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
-
 import peote.view.Element;
-import utils.Loader;
+import peote.view.Load;
+
 import utils.Vec2;
 
 
@@ -100,7 +100,7 @@ class Boids extends Application
 		peoteView = new PeoteView(window); // at now this should stay first ( to initialize PeoteGL from gl-context! )
         display = new Display(0, 0, window.width, window.height, Color.GREEN);
 
-		Loader.image ("assets/boid.png", true, onImageLoad);
+		Load.image ("assets/boid.png", true, onImageLoad);
 	}
 
     private function onImageLoad(image:Image)

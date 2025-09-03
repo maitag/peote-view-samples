@@ -17,8 +17,7 @@ import peote.view.Color;
 import peote.view.Element;
 import peote.view.Texture;
 import peote.view.TextureConfig;
-
-import utils.Loader;
+import peote.view.Load;
 
 class Elem implements Element
 {
@@ -110,7 +109,7 @@ class GLPicking extends Application
 		
 		display.addProgram(program);
 		
-		Loader.image("assets/wabbit_alpha.png", true, function (image:Image)
+		Load.image("assets/wabbit_alpha.png", true, function (image:Image)
 		{
 			trace("loading complete");
 			var texture = new Texture(26, 37);

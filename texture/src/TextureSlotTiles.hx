@@ -17,8 +17,7 @@ import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
 import peote.view.Element;
-
-import utils.Loader;
+import peote.view.Load;
 
 class Elem implements Element
 {
@@ -139,7 +138,7 @@ class TextureSlotTiles extends Application
 	}
 	
 	public function loadImage(texture:Texture, filename:String, slot:Int=0):Void {
-		Loader.image(filename, true, function(image:Image) {
+		Load.image(filename, true, function(image:Image) {
 			texture.setData(image, slot);
 		});		
 	}

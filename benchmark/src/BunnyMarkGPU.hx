@@ -15,12 +15,11 @@ import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
+import peote.view.Load;
 import peote.view.text.TextProgram;
 import peote.view.text.Text;
 
 import peote.view.Element;
-
-import utils.Loader;
 
 class Bunny implements Element
 {
@@ -91,7 +90,7 @@ class BunnyMarkGPU extends Application
 		
 		var program = new Program(buffer);
 		
-		Loader.image ("assets/wabbit_alpha.png", true, function (image:Image)
+		Load.image ("assets/wabbit_alpha.png", true, function (image:Image)
 		{			
 			var texture = new Texture(image.width, image.height);
 			

@@ -11,8 +11,6 @@ import lime.graphics.Image;
 import lime.math.Rectangle;
 import lime.math.Vector2;
 
-import utils.Loader;
-
 import peote.view.PeoteView;
 import peote.view.Display;
 import peote.view.Buffer;
@@ -20,6 +18,7 @@ import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
 import peote.view.Element;
+import peote.view.Load;
 
 class ElementSimple implements Element
 {
@@ -80,7 +79,7 @@ class DepthBlend extends Application
 		bufferL  = new Buffer<ElementSimple>(100);
 		programL = new Program(bufferL);
 		
-		Loader.image("assets/peote_tiles.png", true, function(image:Image) {
+		Load.image("assets/peote_tiles.png", true, function(image:Image) {
 			var texture = new Texture(32, 32);
 			var flower = new Image(null, 0, 0, 32, 32);
 			flower.copyPixels(image, new Rectangle(128+32, 0, 32, 32), new Vector2(0, 0));

@@ -8,8 +8,6 @@ import lime.ui.KeyCode;
 import lime.ui.KeyModifier;
 import lime.ui.MouseButton;
 import lime.graphics.Image;
-
-import utils.Loader;
 //import lime.utils.Assets;
 
 import peote.view.PeoteView;
@@ -21,6 +19,7 @@ import peote.view.Texture;
 import peote.view.Element;
 import peote.view.TextureData;
 import peote.view.TextureFormat;
+import peote.view.Load;
 
 class Elem implements Element
 {
@@ -95,7 +94,7 @@ class TextureSimple extends Application
 		element  = new Elem(0, 0);
 		buffer.addElement(element);     // element to buffer
 		
-		Loader.image ("assets/hxMeat.jpg", true, function (image:Image)
+		Load.image ("assets/hxMeat.jpg", true, function (image:Image)
 		// Loader.image ("assets/peote_tiles.png", true, function (image:Image)
 		{	
 			//texture = Texture.fromData(image);

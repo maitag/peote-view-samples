@@ -17,8 +17,6 @@ import peote.view.Color;
 import peote.view.Element;
 import peote.view.Texture;
 
-import utils.Loader;
-
 class Elem implements Element
 {
 	@posX public var x:Int = 0;

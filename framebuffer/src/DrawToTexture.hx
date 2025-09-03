@@ -108,8 +108,7 @@ class DrawToTexture extends Application
 		// textureCanvas = new Texture(800, 600, {format:TextureFormat.R});
 		textureCanvas.clearOnRenderInto = false; // do not clear the texture before rendering into
 		
-		
-		
+			
 		// -- display that holds only one element with the texture what is drawed into
 		
 		// displayCanvas = new Display(0, 0, 800, 600, Color.BLUE);

@@ -1,7 +1,5 @@
 package;
 
-import utils.Loader;
-import haxe.Timer;
 import haxe.CallStack;
 import lime.app.Application;
 import lime.ui.Window;
@@ -9,6 +7,7 @@ import lime.ui.Window;
 import peote.view.PeoteView;
 import peote.view.Display;
 import peote.view.Color;
+import peote.view.Load;
 
 import peote.view.text.*;
 
@@ -56,8 +55,10 @@ class LoadText extends Application {
 
 		display.addProgram(textProgram);
 
+		// look at here how to use the `Load` tool:
+		// http://maitag.de/semmi/haxelime/peote-view-api/peote/view/Load.html
 
-		Loader.text
+		Load.text
 		(			
 			// filename
 			"assets/testANSI.txt",
@@ -65,6 +66,9 @@ class LoadText extends Application {
 			// debug
 			// true,
 							
+			// onLoad
+			// do always use the onLoad handler or a `null` here,
+			// because the onError have same type and all callback params are optional 
 			function(s:String) {
 				trace("onload", s);
 				// create a text-instance
@@ -78,14 +82,17 @@ class LoadText extends Application {
 		);
 		
 
-		Loader.textArray
+		Load.textArray
 		(			
 			// filenames
 			[ "assets/testANSI.txt", "assets/testUTF8.txt" ],
 			
 			// debug
 			// true,
-						
+			
+			// onLoad
+			// do always use the onLoad handler or a `null` here,
+			// because the onError have same type and all callback params are optional 
 			function(i, s:String) {
 				trace("onload", i, s);
 				// create a text-instance

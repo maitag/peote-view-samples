@@ -15,12 +15,11 @@ import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
+import peote.view.Load;
 import peote.view.text.TextProgram;
 import peote.view.text.Text;
 
 import peote.view.Element;
-
-import utils.Loader;
 
 class Bunny implements Element
 {
@@ -103,7 +102,7 @@ class BunnyMark extends Application
 		peoteView = new PeoteView(window); // at now this should stay first ( to initialize PeoteGL from gl-context! )
 		buffer = new Buffer<Bunny>(bunnyCount, 4096); // automatic grow buffersize about 4096
 		
-		Loader.image ("assets/wabbit_alpha.png", true, onImageLoad);
+		Load.image ("assets/wabbit_alpha.png", true, onImageLoad);
 	}
 
 	private function onImageLoad(image:Image)

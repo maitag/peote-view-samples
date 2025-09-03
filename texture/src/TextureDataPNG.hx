@@ -15,8 +15,7 @@ import peote.view.Color;
 import peote.view.Texture;
 import peote.view.TextureData;
 import peote.view.TextureFormat;
-
-import utils.Loader;
+import peote.view.Load;
 
 class Elem implements Element
 {
@@ -65,18 +64,18 @@ class TextureDataPNG extends Application
 		
 
 		// images saved by gimp:
-		// Loader.bytes("assets/suzanneGrey.png", true, function (bytes:Bytes)
-		Loader.bytes("assets/suzanneGrey16.png", true, function (bytes:Bytes)  // 16 bit per colorchannel will result here into FLOAT_R
-		// Loader.bytes("assets/suzanneGreyAlpha.png", true, function (bytes:Bytes)
-		// Loader.bytes("assets/suzanneGreyAlpha16.png", true, function (bytes:Bytes)  // 16 bit per colorchannel will result here into FLOAT_RG
+		// Load.bytes("assets/suzanneGrey.png", true, function (bytes:Bytes)
+		Load.bytes("assets/suzanneGrey16.png", true, function (bytes:Bytes)  // 16 bit per colorchannel will result here into FLOAT_R
+		// Load.bytes("assets/suzanneGreyAlpha.png", true, function (bytes:Bytes)
+		// Load.bytes("assets/suzanneGreyAlpha16.png", true, function (bytes:Bytes)  // 16 bit per colorchannel will result here into FLOAT_RG
 		
 		// images saved by blender compositor:
-		// Loader.bytes("assets/suzanneBW.png", true, function (bytes:Bytes)
-		// Loader.bytes("assets/suzanneBW16.png", true, function (bytes:Bytes)  // 16 bit per colorchannel will result here into FLOAT_R
-		// Loader.bytes("assets/suzanneRGB.png", true, function (bytes:Bytes)
-		// Loader.bytes("assets/suzanneRGB16.png", true, function (bytes:Bytes)
-		// Loader.bytes("assets/suzanneRGBA.png", true, function (bytes:Bytes)
-		// Loader.bytes("assets/suzanneRGBA16.png", true, function (bytes:Bytes)
+		// Load.bytes("assets/suzanneBW.png", true, function (bytes:Bytes)
+		// Load.bytes("assets/suzanneBW16.png", true, function (bytes:Bytes)  // 16 bit per colorchannel will result here into FLOAT_R
+		// Load.bytes("assets/suzanneRGB.png", true, function (bytes:Bytes)
+		// Load.bytes("assets/suzanneRGB16.png", true, function (bytes:Bytes)
+		// Load.bytes("assets/suzanneRGBA.png", true, function (bytes:Bytes)
+		// Load.bytes("assets/suzanneRGBA16.png", true, function (bytes:Bytes)
 		{
 			var textureData = TextureData.fromFormatPNG(bytes);
 

@@ -16,8 +16,7 @@ import peote.view.Element;
 import peote.view.Program;
 import peote.view.Texture;
 import peote.view.Color;
-
-import utils.Loader;
+import peote.view.Load;
 
 class Elem implements Element
 {
@@ -118,8 +117,8 @@ class ColorFormula extends Application
 		display.addProgram(program);
 		
 		// load images into textures (async)
-		Loader.image("assets/test1.png", true, (img:Image) -> texture1 = Texture.fromData(img));
-		Loader.image("assets/test2.png", true, (img:Image) -> texture2 = Texture.fromData(img));
+		Load.image("assets/test1.png", true, (img:Image) -> texture1 = Texture.fromData(img));
+		Load.image("assets/test2.png", true, (img:Image) -> texture2 = Texture.fromData(img));
 	
 		
 	}

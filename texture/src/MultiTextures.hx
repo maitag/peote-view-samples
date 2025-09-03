@@ -16,8 +16,7 @@ import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
 import peote.view.Element;
-
-import utils.Loader;
+import peote.view.Load;
 
 class Elem implements Element
 {
@@ -32,7 +31,7 @@ class Elem implements Element
 	@color("colblue")  public var c2:Color = 0x0000ffff;
 		
 	//@texUnit() public var unit:Int;  // unit for all other Layers (max 255)
-	@texUnit("base") public var unitColor:Int=0;  //  unit for "base" Layer only
+	@texUnit("base") public var unitBase:Int=0;  //  unit for "base" Layer only
 	@texUnit("alpha","mask") public var unitAlphaMask:Int;  //  unit for "alpha" and "mask" Layers only
 
 	// what texture-slot to use
@@ -41,7 +40,7 @@ class Elem implements Element
 
 	// tiles the slot or manual texture-coordinate into sub-slots
 	@texTile public var tile:Int;  // for all other Layers
-	@texTile("base", "mask") public var tileBaseMask:Int;  // for "alpha" and "mask" Layers only
+	@texTile("base", "mask") public var tileBaseMask:Int;  // for "base" and "mask" Layers only
 
 	// formula (glsl) to combine colors with textures
 	// default is alpha-over:  mix( mix( c0*t0, c1*t1 , (c1*t1).a ) ...)) * cn1 + cn2 * cn3 + cn4 * ...
@@ -132,7 +131,7 @@ class MultiTextures extends Application
 	}
 	
 	public function loadImage(texture:Texture, filename:String, slot:Int=0):Void {
-		Loader.image(filename, true, function(image:Image) {
+		Load.image(filename, true, function(image:Image) {
 			texture.setData(image, slot);
 		});		
 	}
@@ -150,7 +149,7 @@ class MultiTextures extends Application
 		switch (keyCode) {
 			case KeyCode.U:
 				trace("switch texture unit");
-				element.unitColor = 1; buffer.updateElement(element);
+				element.unitBase = (element.unitBase+1) % 3; buffer.updateElement(element);trace(element.unitBase);
 			case KeyCode.R:
 				trace("replace texture "); // TODO
 				//program.replaceTexture(texture0, texture1);

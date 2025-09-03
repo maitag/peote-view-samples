@@ -16,12 +16,11 @@ import peote.view.Buffer;
 import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
+import peote.view.Load;
 import peote.view.text.TextProgram;
 import peote.view.text.Text;
 
 import peote.view.Element;
-
-import utils.Loader;
 
 class Bunny implements Element
 {
@@ -114,7 +113,7 @@ class BunnyMarkMulti extends Application
 		bunnies = new Array ();
 		peoteView = new PeoteView(window); // at now this should stay first ( to initialize PeoteGL from gl-context! )
 
-		Loader.image ("assets/wabbit_alpha.png", true, onImageLoad);
+		Load.image ("assets/wabbit_alpha.png", true, onImageLoad);
 	}
 
 	private function onImageLoad(image:Image)

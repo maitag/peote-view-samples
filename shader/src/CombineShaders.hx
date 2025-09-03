@@ -16,8 +16,7 @@ import peote.view.Program;
 import peote.view.Color;
 import peote.view.Texture;
 import peote.view.Element;
-
-import utils.Loader;
+import peote.view.Load;
 
 class Elem implements Element
 {
@@ -114,7 +113,7 @@ class CombineShaders extends Application
 		program.setMultiTexture([textureImage0, textureImage1], Elem.TEXTURE_image, false);
 		program.setTexture(textureMask, Elem.TEXTURE_mask, false);
 				
-		program.updateTextures(); // updates gl-textures and rebuilding shadercode
+		program.update(); // updates gl-textures and rebuilding shadercode
 				
 		loadImage(textureImage0, "assets/test0.png", 0);
 		loadImage(textureImage0, "assets/test1.png", 1);
@@ -127,7 +126,7 @@ class CombineShaders extends Application
 	}
 	
 	public function loadImage(texture:Texture, filename:String, slot:Int=0):Void {
-		Loader.image(filename, true, function(image:Image) {
+		Load.image(filename, true, function(image:Image) {
 			texture.setData(image, slot);
 		});		
 	}
