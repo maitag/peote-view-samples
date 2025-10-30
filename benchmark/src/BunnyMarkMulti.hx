@@ -55,7 +55,6 @@ class Bunny implements Element
 class BunnyMarkMulti extends Application
 {
 	var bunnies:Array<Bunny>;
-	var buffers:Vector<Buffer<Bunny>>;
 	var textures:Vector<Texture>;
 	
 	var peoteView:PeoteView;
@@ -70,6 +69,8 @@ class BunnyMarkMulti extends Application
 	var textureCount:Int = 32;
 	var bunnyCount:Int = 300;
 	
+	var display:Display;
+
 	var fpsDisplay:FpsDisplay;
 	var textProgram:TextProgram;
 	var bunniesAmountText:Text;
@@ -126,16 +127,11 @@ class BunnyMarkMulti extends Application
 			textures.set(t, texture);
 		}
 
-		// create buffers
-		buffers = new Vector(programCount);
-		var display = new Display(0, 0, maxX, maxY, Color.GREEN);
+		display = new Display(0, 0, maxX, maxY, Color.GREEN);
 
 		var t:Int = 0;
 		for (i in 0...programCount) {
-			var buffer = new Buffer<Bunny>(bunnyCount);
-			buffers.set(i, buffer);
-			
-			var program = new Program(buffer); //Sprite buffer
+			var program = new Program(new Buffer<Bunny>(bunnyCount)); //Sprite buffer
 
 			program.addTexture(textures.get(t), "custom"); //Sets image for the sprites
 
@@ -150,7 +146,7 @@ class BunnyMarkMulti extends Application
 		peoteView.addDisplay(display);  // display to peoteView
 
 		// adding bunnies
-		for (i in 0...programCount)
+		for (program in display) {
 			for (_ in 0...bunnyCount) {
 				var bunny = new Bunny();
 				bunny.x = 0;
@@ -158,15 +154,19 @@ class BunnyMarkMulti extends Application
 				bunny.speedX = Math.random () * 5;
 				bunny.speedY = (Math.random () * 5) - 2.5;
 				bunnies.push(bunny);
-				buffers.get(i).addElement(bunny);
+				( cast (program.buffer, Buffer<Bunny>) ).addElement(bunny);
 			}
-
-		// -------- bunny counter ----------
+		}
+		
+		
+		// -------- bunny counter inside new Display ----------
+		var textDisplay = new Display(0,0,500, 12);
+		peoteView.addDisplay(textDisplay);
 		textProgram = new TextProgram({fgColor:Color.YELLOW, bgColor:Color.RED1, letterWidth: 12,	letterHeight: 12});
 		textProgram.add(new Text(300, 0, "Bunnies: "));
 		bunniesAmountText = new Text(300+9*12, 0, Std.string(programCount*bunnyCount));
 		textProgram.add(bunniesAmountText);
-		display.addProgram(textProgram);
+		textDisplay.addProgram(textProgram);
 	
 		// -------- FpsDisplay ----------
 		fpsDisplay = new FpsDisplay(0, 0, 12, Color.YELLOW, Color.RED1);
@@ -215,8 +215,10 @@ class BunnyMarkMulti extends Application
 				bunny.y = minY;
 			}
 		}
-				
-		for (i in 0...programCount) buffers.get(i).update();			
+		
+		// update programs buffers
+		for (program in display) program.buffer.update();
+		
 	}
 
 	override function render(_):Void 
