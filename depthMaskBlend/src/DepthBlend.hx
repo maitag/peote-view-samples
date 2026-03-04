@@ -51,6 +51,7 @@ class DepthBlend extends Application
 	var element2:ElementSimple;
 	var element3:ElementSimple;
 	var element4:ElementSimple;
+	var element5:ElementSimple;
 	
 	var bufferL:Buffer<ElementSimple>;
 	var displayL:Display;
@@ -90,7 +91,7 @@ class DepthBlend extends Application
 		displayL.addProgram(programL);
 		peoteView.addDisplay(displayL);
 		
-		displayR = new Display(300, 100, 400, 400, 0x00FFFF99);
+		displayR = new Display(250, 100, 400, 400, 0x00FFFF99);
 		bufferR  = new Buffer<ElementSimple>(100);
 		programR = new Program(bufferR);
 		displayR.addProgram(programR);
@@ -98,13 +99,15 @@ class DepthBlend extends Application
 		
 		element1 = new ElementSimple(100, 100, 100, 100, 0xFF0000ff); element1.z = -ElementSimple.MAX_ZINDEX;
 		element2 = new ElementSimple(130, 130, 100, 100, 0x0000ffff); element2.z = -ElementSimple.MAX_ZINDEX;
+		element3 = new ElementSimple(300, 230, 100, 100, 0x00ff00ff); element3.z = 1;
 		bufferL.addElement(element1);
 		bufferL.addElement(element2);
+		bufferL.addElement(element3);
 		
-		element3 = new ElementSimple(100, 100, 100, 100, 0x0000FFFF);
-		element4 = new ElementSimple(150, 150, 100, 100, 0xFFFF0099);
-		bufferR.addElement(element3);
+		element4 = new ElementSimple(70, 100, 100, 100, 0x0000FFFF); element4.z = 0;
+		element5 = new ElementSimple(120, 150, 100, 100, 0xFFFF0099); element5.z = 1;
 		bufferR.addElement(element4);
+		bufferR.addElement(element5);
 		
 		activeElement = element1;
 	}
@@ -137,12 +140,14 @@ class DepthBlend extends Application
 			case KeyCode.NUMBER_2: activeElement = element2;
 			case KeyCode.NUMBER_3: activeElement = element3;
 			case KeyCode.NUMBER_4: activeElement = element4;
+			case KeyCode.NUMBER_5: activeElement = element5;
 			case KeyCode.LEFT:  activeElement.x -= 10;
 			case KeyCode.RIGHT: activeElement.x += 10;
 			case KeyCode.UP:    activeElement.y -= 10;
 			case KeyCode.DOWN:  activeElement.y += 10;
 			case KeyCode.NUMPAD_PLUS: activeElement.z += 1; trace(activeElement.z);
 			case KeyCode.NUMPAD_MINUS:activeElement.z -= 1; trace(activeElement.z);
+			case KeyCode.SPACE: programR.clearDepth = ! programR.clearDepth; trace("clear z-buffer", programR.clearDepth);
 			default:
 		}
 		bufferL.update(); bufferR.update();
