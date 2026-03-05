@@ -52,7 +52,7 @@ class DepthBlend extends Application
 	var element3:ElementSimple;
 	var element4:ElementSimple;
 	var element5:ElementSimple;
-	
+
 	var bufferL:Buffer<ElementSimple>;
 	var displayL:Display;
 	var programL:Program;
@@ -148,8 +148,11 @@ class DepthBlend extends Application
 			case KeyCode.NUMPAD_PLUS: activeElement.z += 1; trace(activeElement.z);
 			case KeyCode.NUMPAD_MINUS:activeElement.z -= 1; trace(activeElement.z);
 			case KeyCode.SPACE: programR.clearDepth = ! programR.clearDepth; trace("clear z-buffer", programR.clearDepth);
+			case KeyCode.N: programL.colorEnabled = ! programL.colorEnabled;
+			case KeyCode.M: programR.colorEnabled = ! programR.colorEnabled;
 			default:
 		}
+ 
 		bufferL.update(); bufferR.update();
 	}
 		

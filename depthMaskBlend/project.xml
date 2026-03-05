@@ -12,7 +12,9 @@
 	<!--
 		DepthBlend,
 		BlendAlphaMode,
+		ColorMask
 		StencilMask
+		MultipassDepthBlend
 	-->
 	
 	
