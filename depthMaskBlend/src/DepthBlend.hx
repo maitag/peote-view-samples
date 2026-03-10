@@ -1,5 +1,6 @@
 package;
 
+import peote.view.DepthFunc;
 import haxe.CallStack;
 
 import lime.app.Application;
@@ -72,6 +73,7 @@ class DepthBlend extends Application
 		}
 	}
 
+	@:access(peote.view.Program)
 	public function startSample(window:Window)
 	{	
 		var peoteView = new PeoteView(window);
@@ -87,7 +89,7 @@ class DepthBlend extends Application
 			texture.setData(flower);
 			programL.setTexture(texture, "custom");
 		});
-		
+				
 		displayL.addProgram(programL);
 		peoteView.addDisplay(displayL);
 		
@@ -98,7 +100,7 @@ class DepthBlend extends Application
 		peoteView.addDisplay(displayR);
 		
 		element1 = new ElementSimple(100, 100, 100, 100, 0xFF0000ff); element1.z = -ElementSimple.MAX_ZINDEX;
-		element2 = new ElementSimple(130, 130, 100, 100, 0x0000ffff); element2.z = -ElementSimple.MAX_ZINDEX;
+		element2 = new ElementSimple(130, 130, 100, 100, 0x0000ffff); element2.z = -ElementSimple.MAX_ZINDEX+1;
 		element3 = new ElementSimple(300, 230, 100, 100, 0x00ff00ff); element3.z = 1;
 		bufferL.addElement(element1);
 		bufferL.addElement(element2);
@@ -109,6 +111,8 @@ class DepthBlend extends Application
 		bufferR.addElement(element4);
 		bufferR.addElement(element5);
 		
+		displayR.backgroundZ = -1;
+
 		activeElement = element1;
 	}
 	
@@ -133,9 +137,10 @@ class DepthBlend extends Application
 			case KeyCode.B: displayR.backgroundEnabled = !displayR.backgroundEnabled;
 			case KeyCode.X: programL.blendEnabled = !programL.blendEnabled;
 			case KeyCode.Y: programR.blendEnabled = !programR.blendEnabled;
-			case KeyCode.C: programL.zIndexEnabled = !programL.zIndexEnabled;
-			case KeyCode.V: programR.zIndexEnabled = !programR.zIndexEnabled;
-			case KeyCode.Z: displayR.backgroundDepth = !displayR.backgroundDepth;
+			case KeyCode.C: programL.zIndexEnabled = !programL.zIndexEnabled;trace("programL.zIndexEnabled", programL.zIndexEnabled);
+			case KeyCode.V: programR.zIndexEnabled = !programR.zIndexEnabled;trace("programR.zIndexEnabled", programR.zIndexEnabled);
+			case KeyCode.T: displayL.backgroundDepth = !displayL.backgroundDepth;trace("displayL.backgroundDepth", displayL.backgroundDepth);
+			case KeyCode.Z: displayR.backgroundDepth = !displayR.backgroundDepth;trace("displayR.backgroundDepth", displayR.backgroundDepth);
 			case KeyCode.NUMBER_1: activeElement = element1;
 			case KeyCode.NUMBER_2: activeElement = element2;
 			case KeyCode.NUMBER_3: activeElement = element3;

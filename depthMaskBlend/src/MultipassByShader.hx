@@ -1,5 +1,6 @@
 package;
 
+import peote.view.DepthFunc;
 import peote.view.BlendFactor;
 import peote.view.BlendFunc;
 import haxe.CallStack;
@@ -75,7 +76,7 @@ class MultipassByShader extends Application
 	{	
 		var peoteView = new PeoteView(window);
 		
-		display  = new Display(0, 0, 800, 600, Color.BLUE1);
+		display  = new Display(0, 0, 800, 600);
 		peoteView.addDisplay(display);
 
 		buffer  = new Buffer<ElementSimple>(100);
@@ -94,16 +95,18 @@ class MultipassByShader extends Application
 			program1.setColorFormula("vec4(tex.r, tex.g, tex.b, (tex.a == 1.0) ? 0.0 : tex.a )");
 		});
 		
+		program0.depthFunc = DepthFunc.LESS;
+		program1.depthFunc = DepthFunc.LESS;
+
 		program0.discardAtAlpha(0.95);
-		program0.zIndexEnabled = true;
-		program0.blendEnabled = false;
+		program0.blendEnabled = false; // don't use alpha blending
+		program0.zIndexEnabled = true; // use depth-buffer for depth-test
 		
 
 		program1.discardAtAlpha(0.0);
-		program1.blendEnabled = true;
-		program1.zIndexEnabled = true; // <- need to enable depth-test
-		// now i am get it ;)
-		program1.depthMask = false;
+		program1.blendEnabled = true;  // use alpha blending
+		program1.zIndexEnabled = true; // use depth-buffer for depth-test
+		program1.depthMask = false; // do not write into the depth-buffer while drawing
 
 				
 		display.addProgram(program0);
