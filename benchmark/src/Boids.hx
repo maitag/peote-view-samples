@@ -19,7 +19,7 @@ import peote.view.Texture;
 import peote.view.Element;
 import peote.view.Load;
 
-import utils.Vec2;
+import peote.view.math.Vec2;
 
 
 class Boid implements Element
@@ -55,8 +55,6 @@ class Boids extends Application
 	var buffer:Buffer<Boid>;
 	var program:Program;
 	
-	var fps:FPS;
-
 	var isStart = false;
 	var addingBoids = false;
 
@@ -90,11 +88,7 @@ class Boids extends Application
 	}
 
 	public function startSample(window:Window)
-	{
-		// Vec2.test(); // test the Vec2 helper
-		
-		fps = new FPS ();
-		
+	{		
 		maxPos = new Vec2(window.width, window.height);
 		
 		peoteView = new PeoteView(window); // at now this should stay first ( to initialize PeoteGL from gl-context! )
@@ -171,7 +165,7 @@ class Boids extends Application
 		
 		for (boid2 in boids)
 		{
-			if (boid != boid2 && (boid.pos - boid2.pos).length() < visionRange)
+			if (boid != boid2 && (boid.pos - boid2.pos).length < visionRange)
 			{
 				a1 = a1 + boid2.pos;
 				nVic++;
@@ -189,7 +183,7 @@ class Boids extends Application
 		{
 			if (boid != boid2)
 			{
-				if ((boid.pos - boid2.pos).length() < privateSpace)
+				if ((boid.pos - boid2.pos).length < privateSpace)
 				{ 
 					a2 = a2 - (boid2.pos - boid.pos);
 				}
@@ -205,7 +199,7 @@ class Boids extends Application
 		var nVic:Float=0;
 		for (boid2 in boids)
 		{
-			if (boid != boid2 && (boid.pos - boid2.pos).length() < visionRange)
+			if (boid != boid2 && (boid.pos - boid2.pos).length < visionRange)
 			{
 				a3 = a3 + boid2.speed;
 				nVic++;
@@ -255,7 +249,7 @@ class Boids extends Application
 			//update velocity
 			boid.speed = boid.speed + a;
 			
-			var speed:Float = boid.speed.length();
+			var speed:Float = boid.speed.length;
 			if (speed > speedLimitation)
 			{
 				boid.speed = boid.speed / speed * speedLimitation;
@@ -270,8 +264,6 @@ class Boids extends Application
 			for (i in 0...1) addBoid();	
 		}
 		
-		fps.update (deltaTime);
-		
 		buffer.update();	
 	}
 
@@ -283,7 +275,7 @@ class Boids extends Application
 	override function onMouseUp (x:Float, y:Float, button:MouseButton):Void
 	{
 		addingBoids = false;
-		trace ('${boids.length} boids @ ${fps.current} FPS');
+		trace ('boids amount: ${boids.length}');
 	}
 	
 	override function onMouseWheel (dx:Float, dy:Float, mode:MouseWheelMode):Void
@@ -314,36 +306,4 @@ class Boids extends Application
 	}
 	
 
-}
-
-
-// --------------------------------------------
-
-class FPS
-{
-	public var current (get, null):Int;
-	
-	private var totalTime:Int;
-	private var times:Array<Float>;
-		
-	public function new () 
-	{
-		totalTime = 0;
-		times = new Array ();
-	}
-		
-	public function update (deltaTime:Int):Void
-	{
-		totalTime += deltaTime;
-		times.push (totalTime);		
-	}
-	
-	private function get_current ():Int
-	{
-		while (times[0] < totalTime - 1000)
-		{			
-			times.shift ();		
-		}		
-		return times.length;
-	}	
 }

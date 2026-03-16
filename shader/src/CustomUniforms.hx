@@ -10,8 +10,8 @@ import lime.ui.KeyModifier;
 import lime.ui.MouseButton;
 
 import peote.view.*;
-
 import peote.view.Uniform;
+import peote.view.math.*;
 
 
 // -------- simple procedural sinus wave --------
@@ -107,6 +107,7 @@ class CustomUniforms extends Application
 	// custom Uniforms:
 	var linesize = new UniformFloat(0.1);
 	var mouse    = new UniformVec2( {x:0, y:0} );
+	// var mouse    = new UniformVec2( [0, 0] );
 
 	public function startSample(window:Window)
 	{
