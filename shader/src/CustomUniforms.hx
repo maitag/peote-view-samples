@@ -27,7 +27,7 @@ class SinWave implements Element
 	static public var buffer:Buffer<SinWave>;
 	static public var program:Program;
 
-	static public function init(display:Display, linesize:Uniform, mouse:Uniform )
+	static public function init(display:Display, linesize:Uniform, mouse:Uniform, color:Uniform, packedColor:Uniform )
 	{
 		buffer = new Buffer<SinWave>(100);
 		program = new Program(SinWave.buffer);
@@ -39,8 +39,19 @@ class SinWave implements Element
 			"
 				//#define PI 3.14159265359
 				#define TWO_PI 6.28318530718
-
-				vec4 sinwave( vec2 texcoord )
+			"
+			#if html5
+			+"	vec4 unpackUnorm4x8(uint p) {
+					vec4 unpacked;
+					unpacked.x = float(p & 0xFFu) / 255.0;
+					unpacked.y = float((p >> 8u) & 0xFFu) / 255.0;
+					unpacked.z = float((p >> 16u) & 0xFFu) / 255.0;
+					unpacked.w = float((p >> 24u) & 0xFFu) / 255.0;
+					return unpacked;
+				}
+			"
+			#end
+			+"	vec4 sinwave( vec2 texcoord )
 				{
 					texcoord.x += uTime;
 					texcoord.x *= TWO_PI;
@@ -56,7 +67,11 @@ class SinWave implements Element
 						intensity = 1.0;
 					}
 					
-					return vec4( intensity, intensity, intensity, intensity );
+					vec4 col = vec4(uColor)/255.0 * intensity; // not works on html5 without vec4(uColor) casting
+					
+					vec4 bg = unpackUnorm4x8(uPackedColor).abgr; // on html5 it is using manual unpacking function (would needs ES3.1 for unpackUnorm4x8)
+					
+					return col * intensity + bg * (1.0 - intensity);
 				}
 			",
 			// to enable uTime uniform
@@ -64,10 +79,14 @@ class SinWave implements Element
 			// set custom uniforms to use in shader (or into @formulas!)
 			[
 				"uLinesize" => linesize,
-				"uMouse" => mouse
-			]
+				"uMouse" => mouse,
+				"uColor" => color,
+				"uPackedColor" => packedColor
+			],
+			false // <-- do not update program here
 		);
 		
+		program.blendEnabled = true;
 		program.setColorFormula('sinwave(vTexCoord)');
 		
 		#if (html5)
@@ -106,18 +125,21 @@ class CustomUniforms extends Application
 
 	// custom Uniforms:
 	var linesize = new UniformFloat(0.1);
-	var mouse    = new UniformVec2( {x:0, y:0} );
-	// var mouse    = new UniformVec2( [0, 0] );
+	var mouse = new UniformVec2( {x:0, y:0} );
+	var color = new UniformVec4i([Color.YELLOW.r, Color.YELLOW.g, Color.YELLOW.b, 255]);
+	
+	// var packedColor = new UniformInt(0x0000ff22);
+	var packedColor = new UniformUInt(Color.ORANGE);
 
 	public function startSample(window:Window)
 	{
 		peoteView = new PeoteView(window);
 		
-		var display   = new Display(10,10, window.width-20, window.height-20, Color.GREEN);
+		var display   = new Display(10,10, window.width-20, window.height-20, Color.GREEN1);
 		peoteView.addDisplay(display);
 
 		// create shadercode to use this Uniform values
-		SinWave.init(display, linesize, mouse);
+		SinWave.init(display, linesize, mouse, color, packedColor);
 
 		// create element
 		new SinWave(0, 0, 314, 100);
