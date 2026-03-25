@@ -104,14 +104,14 @@ class Main extends Application {
 				buffer.addElement( new Elem(150+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, (j+1)/ny, 0.5) ) );
 				buffer.addElement( new Elem(300+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, (j+1)/ny, 0.75) ) );
 
-				buffer.addElement( new Elem(    x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 0.15,1-(j+1)/ny) ) );
-				buffer.addElement( new Elem(150+x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 0.5, 1-(j+1)/ny) ) );
-				buffer.addElement( new Elem(300+x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 1.0, 1-(j+1)/ny) ) );
+				buffer.addElement( new Elem(    x + i*w, 60+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 0.15,1-(j+1)/ny) ) );
+				buffer.addElement( new Elem(150+x + i*w, 60+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 0.5, 1-(j+1)/ny) ) );
+				buffer.addElement( new Elem(300+x + i*w, 60+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSV((i+1)/nx, 1.0, 1-(j+1)/ny) ) );
 			}
 		}
 
 		// HSL
-		y += 160;
+		y += 130;
 		textProgram.add( new Text(x, y, "HSL:") );
 		y+=20;
 		for (j in 0...ny) {
@@ -120,9 +120,9 @@ class Main extends Application {
 				buffer.addElement( new Elem(150+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, (j+1)/ny, 0.5) ) );
 				buffer.addElement( new Elem(300+x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, (j+1)/ny, 0.75) ) );
 
-				buffer.addElement( new Elem(    x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 0.15,1-(j+1)/ny) ) );
-				buffer.addElement( new Elem(150+x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 0.5, 1-(j+1)/ny) ) );
-				buffer.addElement( new Elem(300+x + i*w, 70+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 1.0, 1-(j+1)/ny) ) );
+				buffer.addElement( new Elem(    x + i*w, 60+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 0.15,1-(j+1)/ny) ) );
+				buffer.addElement( new Elem(150+x + i*w, 60+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 0.5, 1-(j+1)/ny) ) );
+				buffer.addElement( new Elem(300+x + i*w, 60+y + j*h, w, h, 0.0, 0, 0, 0, Color.HSL((i+1)/nx, 1.0, 1-(j+1)/ny) ) );
 			}
 		}
 
@@ -133,7 +133,7 @@ class Main extends Application {
 		display.addProgram(progamAnim);
 
 
-		y += 160;
+		y += 130;
 		w = 2;
 		h = 2;
 		nx = 210; // amount of horizontal elems
@@ -147,6 +147,22 @@ class Main extends Application {
 				e.animColor( Color.HSV((i+1)/nx, 1.0, 1-(j+1)/ny), Color.HSL((i+1)/nx, 1.0, 1-(j+1)/ny) );
 				e.timeColor(0.0, 2.0);
 				bufferAnim.addElement( e );
+			}
+		}
+
+
+		// --- RANDOM COLOR FIELD ---
+
+		y += 190;
+		w = 1;
+		h = 1;
+		textProgram.add( new Text(x, y, "random") );
+		y+=20;
+		nx = 420; // amount of horizontal elems
+		ny = 50;  // amount of vertical elems
+		for (j in 0...ny) {
+			for (i in 0...nx) {
+				buffer.addElement( new Elem( x + i*w, y + j*h, w, h, 0.0, 0, 0, 0, Color.random()  ) );
 			}
 		}
 
