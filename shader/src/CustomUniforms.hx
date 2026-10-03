@@ -126,15 +126,12 @@ class CustomUniforms extends Application
 	// custom Uniforms:
 	var linesize = new UniformFloat(0.1);
 	var mouse = new UniformVec2( {x:0, y:0} );
-	var color = new UniformVec4i([Color.YELLOW.r, Color.YELLOW.g, Color.YELLOW.b, 255]);
-	
-	// var packedColor = new UniformInt(0x0000ff22);
+	var color = new UniformVec4i([Color.YELLOW.r, Color.YELLOW.g, Color.YELLOW.b, Color.YELLOW.a]);
 	var packedColor = new UniformUInt(Color.ORANGE);
 
 	public function startSample(window:Window)
 	{
 		peoteView = new PeoteView(window);
-		
 		var display   = new Display(10,10, window.width-20, window.height-20, Color.GREEN1);
 		peoteView.addDisplay(display);
 
