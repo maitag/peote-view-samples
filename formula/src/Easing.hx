@@ -8,13 +8,9 @@ import lime.ui.Window;
 import lime.ui.MouseButton;
 
 import peote.view.*;
+import peote.view.intern.Ease;
 
 // -------------------------------------------------
-// TODO: better an Util here to use in macro and at runtime -> program.setEaseFormula("x", util.Ease(...))
-/*enum abstract Ease(String) from String to String {
-	var SINE_IN = "1.0 - cos((t * 3.14159265359) / 2.0)";
-	var SINE_OUT = "sin((t * 3.14159265359) / 2.0)";
-}*/
 
 class Elem implements Element
 {
@@ -78,14 +74,35 @@ class Easing extends Application
 		display.addProgram(program);    // programm to display
 
 
-		// TODO: some Util to get the easing formulas here
+		// testing easing formulas:
+
+		trace( '"Ease.In ( SINE , 0.25) ):"', Ease.In( SINE, 0.25) );
+		trace( '"Ease.In( CIRC, 0.25) ):"', Ease.In( CIRC, 0.25) );
+		trace( '"Ease.Out( SINE, 0.25) ):"', Ease.Out( SINE, 0.25) );
+		trace( '"Ease.InOut( SINE, 0.25, SINE, 0.3) ):"', Ease.InOut( SINE, 0.25, SINE, 0.3) );
 		
-		// program.setEaseFormula("x", "1.0-t");
-		// program.removeEaseFormula("x");
+		program.setEaseFormula("x", Ease.In(SINE) );
+		// program.setEaseFormula("x", Ease.In(CIRC) );
+		// program.setEaseFormula("x", Ease.Out(SINE) );
+		// program.setEaseFormula("x", Ease.Out(SINE, 0.3) );
+		// program.setEaseFormula("x", Ease.InOut( SINE, SINE) );
+		// program.setEaseFormula("x", Ease.InOut( SINE, 0.3, SINE) );
+		// program.setEaseFormula("x", Ease.InOut( SINE, 0.2, SINE, 0.2) );
+		// program.setEaseFormula("x", Ease.In( SINE, 0.5 ));
+		// program.setEaseFormula("x", Ease.InOut(QUAD, 0.3, CIRC, 0.3) );
+
+		
+
+
+		
+		// program.setEaseFormula("x", "1.0-t"); // <- simple revert the time
+		// program.removeEaseFormula("x"); // <- remove easing
 		
 		// program.setEaseFormula("a", "1.0-t");
 		// program.removeEaseFormula("a");
 	
+		// to let look the anim more smoothly:
+		program.snapToPixel(1.0);
 
 		element  = new Elem();
 		element.animX(0, 700);
@@ -95,7 +112,7 @@ class Easing extends Application
 		
 		// --------------------------
 		
-		peoteView.start();		
+		peoteView.start();
 	}
 	
 }
