@@ -8,15 +8,14 @@
 	<!-- check this for GG-Playstore: <setenv name="ANDROID_GRADLE_TASK" value=":app:bundleRelease" /> -->
 
 	<!-- samples -->
-	<app main="FormulaMix" path="bin" file="Easing" />
+	<app main="Easing" path="bin" file="Easing" />
 	<!--
 	FormulaMix,
 	Easing,
 	-->
 	
-	
 	<!--<window fps="60" width="800" height="600" vsync="true" antialiasing="4" resizable="true" hardware="true" allow-shaders="true" require-shaders="true" depth-buffer="true" stencil-buffer="false" /> -->
-	<window width="800" height="600" fps="61" />
+	<window width="800" height="600" fps="61" vsync="true" />
 	<!--<window if="html5||android" width="0" height="0" />-->
 	<window if="html5||android" width="0" height="0" allowHighDPI="true" />
 	
@@ -37,15 +36,14 @@
 	<haxedef name="peoteview_instancedrawing" />
 	<haxedef name="peoteview_vertexarrayobjects" />
 
-
-	<!--<haxedef name="peoteview_debug_macro" />-->
-	<haxedef name="peoteview_debug_element" />
-	<!--<haxedef name="peoteview_debug_buffer" />-->
-	<!--<haxedef name="peoteview_debug_view" />-->
-	<!--<haxedef name="peoteview_debug_display" />-->
-	<haxedef name="peoteview_debug_program" />
-	<!--<haxedef name="peoteview_debug_texture" />-->
-	<haxedef name="peoteview_debug_shader" />
+	<!-- <haxedef name="peoteview_debug_macro" /> -->
+	<!-- <haxedef name="peoteview_debug_element" /> -->
+	<!-- <haxedef name="peoteview_debug_buffer" /> -->
+	<!-- <haxedef name="peoteview_debug_view" /> -->
+	<!-- <haxedef name="peoteview_debug_display" /> -->
+	<!-- <haxedef name="peoteview_debug_program" /> -->
+	<!-- <haxedef name="peoteview_debug_texture" /> -->
+	<!-- <haxedef name="peoteview_debug_shader" /> -->
 
 	<!-- <haxedef name="webgl-debug" /> --> <!-- try with chrome and look here: https://www.khronos.org/webgl/wiki/Debugging -->
 	<!-- <haxedef name="source-map-content" /> --> <!-- to debug with chrome it needs also "-debug" -->
