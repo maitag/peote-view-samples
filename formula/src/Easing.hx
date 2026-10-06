@@ -29,8 +29,8 @@ class Elem implements Element
 	public var x:Int = 0;
 	
 	@posY  @const public var y:Int = 0;
-	@sizeX @const public var width:Int = 50;
-	@sizeY @const public var height:Int = 50;
+	@sizeX @const public var width:Int = 30;
+	@sizeY @const public var height:Int = 30;
 	@color @const public var c:Color = 0xb95322ff;
 	
 	/*
@@ -86,23 +86,29 @@ class Easing extends Application
 			display.addProgram(program);
 		}
 
-		var yOff:Int = 76;
+		var yOff:Int = 56;
 		var y:Int = 20-yOff;
 		addEaseProgram("SINE:", y+=yOff, Ease.In(SINE) ); // Ease.Out(SINE)
 		addEaseProgram("QUAD:", y+=yOff, Ease.In(QUAD) );
 		addEaseProgram("CUBIC:", y+=yOff, Ease.In(CUBIC) );
 		addEaseProgram("CIRC:", y+=yOff, Ease.In(CIRC) );
 		addEaseProgram("QUART:", y+=yOff, Ease.In(QUART) );
+		addEaseProgram("QUINT:", y+=yOff, Ease.In(QUINT) );
 		addEaseProgram("EXPO:", y+=yOff, Ease.In(EXPO) );
 		addEaseProgram("BACK:", y+=yOff, Ease.In(BACK) );
+		addEaseProgram("ELASTIC:", y+=yOff, Ease.In(ELASTIC) );
+		addEaseProgram("BOUNCE:", y+=yOff, Ease.In(BOUNCE) );
 		/*
 		addEaseProgram("SINE:", y+=yOff, Ease.InOut(SINE) ); 
 		addEaseProgram("QUAD:", y+=yOff, Ease.InOut(QUAD) );
 		addEaseProgram("CUBIC:", y+=yOff, Ease.InOut(CUBIC) );
 		addEaseProgram("CIRC:", y+=yOff, Ease.InOut(CIRC) );
 		addEaseProgram("QUART:", y+=yOff, Ease.InOut(QUART) );
+		addEaseProgram("QUINT:", y+=yOff, Ease.InOut(QUINT) );
 		addEaseProgram("EXPO:", y+=yOff, Ease.InOut(EXPO) );
 		addEaseProgram("BACK:", y+=yOff, Ease.InOut(BACK) );
+		addEaseProgram("ELASTIC:", y+=yOff, Ease.InOut(ELASTIC) );
+		addEaseProgram("BOUNCE:", y+=yOff, Ease.InOut(BOUNCE) );
 		*/
 
 		// testing out some easing formulas:
