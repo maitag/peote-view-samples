@@ -25,7 +25,8 @@ class Elem implements Element
 	// TODO: @ease("mix(   (  easeInQuad(t, 0.5) , easeOutExpo(t, 0.5), step(t, 0.5)  )")
 	
 	// BETTER: if there is no @ease then @easeIn and/or @easeOut can be used instead
-	//         @easeIn("sine", 0.3) @easeOut("quad", 0.3) // only at 0.3 of time at start and end
+	//         @easeIn("sine") @easeOut("quad") @easeInOut("sine", "quad", 0.3)
+	//         @easeIn("mix(sine, t, a)") 
 	public var x:Int = 0;
 	
 	@posY  @const public var y:Int = 0;
@@ -86,9 +87,12 @@ class Easing extends Application
 			display.addProgram(program);
 		}
 
-		var yOff:Int = 56;
-		var y:Int = 20-yOff;
-		addEaseProgram("SINE:", y+=yOff, Ease.In(SINE) ); // Ease.Out(SINE)
+		var yOff:Int = 54;
+		var y:Int = 22-yOff;
+		// addEaseProgram("test:", y+=yOff, Ease.InOut(ELASTIC, BOUNCE, 0.6) );
+
+		addEaseProgram("HERMITE:", y+=yOff, Ease.In(HERMITE) );
+		addEaseProgram("SINE:", y+=yOff, Ease.In(SINE) );
 		addEaseProgram("QUAD:", y+=yOff, Ease.In(QUAD) );
 		addEaseProgram("CUBIC:", y+=yOff, Ease.In(CUBIC) );
 		addEaseProgram("CIRC:", y+=yOff, Ease.In(CIRC) );
@@ -98,8 +102,21 @@ class Easing extends Application
 		addEaseProgram("BACK:", y+=yOff, Ease.In(BACK) );
 		addEaseProgram("ELASTIC:", y+=yOff, Ease.In(ELASTIC) );
 		addEaseProgram("BOUNCE:", y+=yOff, Ease.In(BOUNCE) );
-		/*
-		addEaseProgram("SINE:", y+=yOff, Ease.InOut(SINE) ); 
+		
+		/*addEaseProgram("HERMITE:", y+=yOff, Ease.Out(HERMITE) );
+		addEaseProgram("SINE:", y+=yOff, Ease.Out(SINE) );
+		addEaseProgram("QUAD:", y+=yOff, Ease.Out(QUAD) );
+		addEaseProgram("CUBIC:", y+=yOff, Ease.Out(CUBIC) );
+		addEaseProgram("CIRC:", y+=yOff, Ease.Out(CIRC) );
+		addEaseProgram("QUART:", y+=yOff, Ease.Out(QUART) );
+		addEaseProgram("QUINT:", y+=yOff, Ease.Out(QUINT) );
+		addEaseProgram("EXPO:", y+=yOff, Ease.Out(EXPO) );
+		addEaseProgram("BACK:", y+=yOff, Ease.Out(BACK) );
+		addEaseProgram("ELASTIC:", y+=yOff, Ease.Out(ELASTIC) );
+		addEaseProgram("BOUNCE:", y+=yOff, Ease.Out(BOUNCE) );*/
+		
+		/*addEaseProgram("HERMITE:", y+=yOff, Ease.InOut(HERMITE) );
+		addEaseProgram("SINE:", y+=yOff, Ease.InOut(SINE) );
 		addEaseProgram("QUAD:", y+=yOff, Ease.InOut(QUAD) );
 		addEaseProgram("CUBIC:", y+=yOff, Ease.InOut(CUBIC) );
 		addEaseProgram("CIRC:", y+=yOff, Ease.InOut(CIRC) );
@@ -108,8 +125,8 @@ class Easing extends Application
 		addEaseProgram("EXPO:", y+=yOff, Ease.InOut(EXPO) );
 		addEaseProgram("BACK:", y+=yOff, Ease.InOut(BACK) );
 		addEaseProgram("ELASTIC:", y+=yOff, Ease.InOut(ELASTIC) );
-		addEaseProgram("BOUNCE:", y+=yOff, Ease.InOut(BOUNCE) );
-		*/
+		addEaseProgram("BOUNCE:", y+=yOff, Ease.InOut(BOUNCE) );*/
+		
 
 		// testing out some easing formulas:
 		// trace( '"Ease.In( CIRC, 0.25) ):"', Ease.In( CIRC, 0.25) );
